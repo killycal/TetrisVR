@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 public class Instantiation : MonoBehaviour {
-	public GameObject O,I,J,L,Z,S,T;
-	public Vector3 one,two,three,four,five,six,seven,eight,nine,ten;
+	public GameObject O,I,I2,J,J2,J3,J4,L,L2,L3,L4,Z,Z2,S,S2,T,T2,T3,T4;
+	public Vector3 zero,one,two,three,four,five,six,seven,eight,nine,ten;
 	private Time time;
 	private IEnumerator schedule;
 	void Start() {
@@ -12,26 +12,12 @@ public class Instantiation : MonoBehaviour {
 	}
 	public IEnumerator generate(){
 		//one=GameObject.Find("10").transform;
-		yield return new WaitForSeconds (3);
-		Instantiate(O, one, Quaternion.identity);
+		yield return new WaitForSeconds (0);
+		GameObject a=Instantiate(J2, two, Quaternion.identity);
+		//a.transform.RotateAround (one,Vector3.left, 2f);
 		yield return new WaitForSeconds (1);
-		//Instantiate(I, two, Quaternion.identity);
+		Instantiate(I, two, Quaternion.identity);
 
-		Instantiate(O, four, Quaternion.identity);
-		yield return new WaitForSeconds (1);
-		Instantiate(J, three, Quaternion.identity);
-		yield return new WaitForSeconds (1);
-		//Instantiate(I, five, Quaternion.identity);
-		Instantiate(I, six, Quaternion.identity);
-		yield return new WaitForSeconds (1);
-		Instantiate(I, seven, Quaternion.identity);
-		yield return new WaitForSeconds (1);
-		Instantiate(I, eight, Quaternion.identity);
-		yield return new WaitForSeconds (1);
-		Instantiate(I, nine, Quaternion.identity);
-		yield return new WaitForSeconds (1);
-		Instantiate(I, ten, Quaternion.identity);
-		yield return new WaitForSeconds (1);
 	}
 }
 

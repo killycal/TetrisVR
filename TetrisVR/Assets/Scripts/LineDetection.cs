@@ -1,10 +1,20 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+
+
+
+
 
 public class LineDetection : MonoBehaviour {
 	private int total=0;
 	private bool destroy=false;
+	private IEnumerator schedule;
+	void Start() {
+		//schedule=generate ();
+		//StartCoroutine (schedule);
+
+	}
 	void OnTriggerEnter(Collider other) {
 		total++;
 		if (total == 10) {
@@ -13,17 +23,13 @@ public class LineDetection : MonoBehaviour {
 		}
 	}
 	void OnTriggerExit(Collider other) {
-		if (destroy == false) {
 			total--;
-		}
 	}
 	void OnTriggerStay(Collider other){
-		if (destroy == true) {
+		if ((other.attachedRigidbody.IsSleeping ())&&(destroy == true)) {
+			print (total);
 			Destroy(other.gameObject);
-			if (total !=0) {
 				total--;
-				print (total);
-			}
 			if (total==0) {
 				destroy = false;
 				print (destroy);
