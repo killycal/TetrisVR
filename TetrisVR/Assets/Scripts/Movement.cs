@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Movement : MonoBehaviour {
+	private new Lines line;
+	private int num;
 	private Vector3 pos;
 	private Vector3 end;
-	private bool move=true;
 	public float speed = 1.0f;
 	private float startTime;
 	private float journeyLength;
-	// Use this for initialization
+	private bool move=true;
+
 	void Start () {
 		pos=this.transform.position;
 		end = pos;
@@ -17,21 +19,22 @@ public class Movement : MonoBehaviour {
 		startTime = Time.time;
 		journeyLength = Vector3.Distance(pos, end);
 	}
-	
-	// Update is called once per frame
 	void FixedUpdate () {
 		if (move==true)
 		{
 			float distCovered = (Time.time - startTime) * speed;
 			float fracJourney = distCovered / journeyLength;
-			//this.transform.position.Set(this.transform.position.x,pos,this.transform.position.z);
-			//pos -= .1f;
 			this.transform.position=Vector3.Lerp(pos,end,fracJourney);
 		}
+		if (Time.time-startTime>2.7/speed)
+		DestroyObject(this.gameObject);
 	}
 	void OnCollisionEnter(Collision other)
 	{
 		move = false;
-		print (other.gameObject);
+	}
+	public bool getMove()
+	{
+		return move;
 	}
 }

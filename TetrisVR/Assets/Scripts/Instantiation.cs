@@ -13,10 +13,32 @@ public class Instantiation : MonoBehaviour {
 	public IEnumerator generate(){
 		//one=GameObject.Find("10").transform;
 		yield return new WaitForSeconds (0);
-		GameObject a=Instantiate(J2, two, Quaternion.identity);
+		//Instantiate(I, one, Quaternion.identity);
+		yield return new WaitForSeconds (1);
+		GameObject a=Instantiate(L2, two, Quaternion.identity);
 		//a.transform.RotateAround (one,Vector3.left, 2f);
 		yield return new WaitForSeconds (1);
-		Instantiate(I, two, Quaternion.identity);
+		Instantiate(L4, one, Quaternion.identity);
+
+		yield return new WaitForSeconds (1);
+		Instantiate(T, two, Quaternion.identity);
+		yield return new WaitForSeconds (1);
+		Instantiate(I, three, Quaternion.identity);
+		yield return new WaitForSeconds (1);
+		Instantiate(I, four, Quaternion.identity);
+		yield return new WaitForSeconds (1);
+		Instantiate(I, five, Quaternion.identity);
+		yield return new WaitForSeconds (1);
+		Instantiate(I, six, Quaternion.identity);
+		yield return new WaitForSeconds (1);
+		Instantiate(I, seven, Quaternion.identity);
+		yield return new WaitForSeconds (1);
+		Instantiate(I, eight, Quaternion.identity);
+		yield return new WaitForSeconds (1);
+		Instantiate(I, nine, Quaternion.identity);
+		yield return new WaitForSeconds (1);
+		Instantiate(I, ten, Quaternion.identity);
+		yield return new WaitForSeconds (1);
 
 	}
 }
