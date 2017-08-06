@@ -7,19 +7,20 @@ public class Cube : MonoBehaviour {
 	private int num;
 	private Vector3 pos;
 	private Vector3 end;
-	public float speed = 1.0f;
+	private float speed = .5f;
 	private float startTime;
 	private float journeyLength;
 	private bool move=false;
 	private float lineno=-1;
-	private float exline=-1;
-	// Use this for initialization
+	public Lines horizontal;
+
 	void Start () {
 		pos=this.transform.position;
 		end = pos;
 		end.Set (pos.x, pos.y-.1f, pos.z);
 		startTime = Time.time;
 		journeyLength = Vector3.Distance(pos, end);
+		horizontal = GameObject.Find ("Horizontal").GetComponent<Lines> ();
 	}
 	
 
@@ -31,41 +32,45 @@ public class Cube : MonoBehaviour {
 				this.gameObject.name = "cube";
 			}
 		}
-		if (move == true) {
+		else
+		{
+			if ((this.gameObject.transform.position.y-end.y<.001)&&(move==true)){
+				horizontal.toDestroy = 0;
+				move=false;
+				horizontal.destroy.Clear();
+			}
+		    else if (move == true) {
 			//this.gameObject.name = "Cube";
 			float distCovered = (Time.time - startTime) * speed;
 			float fracJourney = distCovered / journeyLength;
 			this.transform.position = Vector3.Lerp (pos, end, fracJourney);
-		} 
-		if ((this.gameObject.transform.position.y-end.y<.001)&&(move==true)){
-			GameObject.Find ("Horizontal").GetComponent<Lines> ().toDestroy = 0;
-			move=false;
+			} 
 		}
 	}
-	void OnCollisionEnter(Collision other)
+	/*void OnCollisionEnter(Collision other)
 	{
 		if (other.gameObject.name == "cube" || other.gameObject.name == "Plane")
 			move = false;
-	}
+	}*/
 	void OnTriggerEnter(Collider other)
 	{
 		string line=other.gameObject.name.Remove (0, 4);
-		float lastline = lineno;
 		lineno = int.Parse (line);
-	}
-	public void setMove (bool moveit)
-	{
-		move=moveit;
+		string name = "line (" + lineno+")";
+		this.gameObject.transform.SetParent (GameObject.Find (name).GetComponent<Transform> ());
 	}
 	private void adjust(float input)
 	{
-			exline = input;
-			if (lineno > exline) { 
-				move = true;
-				pos = this.gameObject.transform.position;
-				end.Set (pos.x, pos.y - .1f*GameObject.Find ("Horizontal").GetComponent<Lines> ().toDestroy, pos.z);
-				startTime = Time.time;
-				journeyLength = Vector3.Distance(pos, end);
-			}
+		int count = 0;
+		for (int i = 0; i < GameObject.Find ("Horizontal").GetComponent<Lines> ().destroy.Count; i++) {
+			if (lineno > GameObject.Find ("Horizontal").GetComponent<Lines> ().destroy[i])
+				count++;
+		move = true;
+		pos = this.gameObject.transform.position;
+		end.Set (pos.x, pos.y - .1f *count, pos.z);
+		startTime = Time.time;
+		journeyLength = Vector3.Distance (pos, end);
 	}
 }
+}
+ 

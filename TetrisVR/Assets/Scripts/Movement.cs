@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Movement : MonoBehaviour {
-	private new Lines line;
+ 	private Lines line;
 	private int num;
 	private Vector3 pos;
 	private Vector3 end;

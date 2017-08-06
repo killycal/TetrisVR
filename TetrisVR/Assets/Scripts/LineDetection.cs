@@ -7,7 +7,6 @@ using System.Collections.Generic;
 //script attached to each line
 
 public class LineDetection : MonoBehaviour{
-	private bool dest=false;
 	private IEnumerator schedule;
 	//make a list to track collided objects
 	List<GameObject> cubes = new List<GameObject>();
@@ -29,9 +28,9 @@ public class LineDetection : MonoBehaviour{
 			float no;
 			string line=this.gameObject.name;
 			no = int.Parse (line.Remove(0,4));
-			this.gameObject.name = "LINE" + no;
-			//GameObject.Find ("Vertical").GetComponent<Collider>().enabled = true;
-			GameObject.Find ("Cubes").BroadcastMessage("adjust", no);
+			GameObject.Find("Horizontal").GetComponent<Lines>().destroy.Add((int)no);
+			//this.gameObject.name = "LINE" + no;
+			GameObject.Find ("Horizontal").BroadcastMessage("adjust", no);
 			//BroadcastMessage(
 			//for (int i = no; i < 24; i++) {
 			//	string l="Line{0}";
