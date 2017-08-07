@@ -15,7 +15,7 @@ public class Movement : MonoBehaviour {
 	void Start () {
 		pos=this.transform.position;
 		end = pos;
-		end.Set (pos.x, -.6f, pos.z);
+		end.Set (pos.x, -10f, pos.z);
 		startTime = Time.time;
 		journeyLength = Vector3.Distance(pos, end);
 	}
@@ -26,7 +26,7 @@ public class Movement : MonoBehaviour {
 			float fracJourney = distCovered / journeyLength;
 			this.transform.position=Vector3.Lerp(pos,end,fracJourney);
 		}
-		if (Time.time-startTime>2.7/speed)
+		if (Time.time-startTime>27/speed)
 		DestroyObject(this.gameObject);
 	}
 	void OnCollisionEnter(Collision other)

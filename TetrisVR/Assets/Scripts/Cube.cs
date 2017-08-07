@@ -7,7 +7,7 @@ public class Cube : MonoBehaviour {
 	private int num;
 	private Vector3 pos;
 	private Vector3 end;
-	private float speed = .5f;
+	private float speed = 10f;
 	private float startTime;
 	private float journeyLength;
 	private bool move=false;
@@ -67,7 +67,7 @@ public class Cube : MonoBehaviour {
 				count++;
 		move = true;
 		pos = this.gameObject.transform.position;
-		end.Set (pos.x, pos.y - .1f *count, pos.z);
+		end.Set (pos.x, pos.y - 1f *count, pos.z);
 		startTime = Time.time;
 		journeyLength = Vector3.Distance (pos, end);
 	}
