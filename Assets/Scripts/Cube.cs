@@ -30,7 +30,6 @@ public class Cube : MonoBehaviour {
 		else
 		{
 			if ((this.gameObject.transform.position.y-end.y<.01)&&(move==true)){
-				horizontal.toDestroy = 0;
 				move=false;
 				horizontal.destroy.Clear();
 			}
@@ -46,12 +45,20 @@ public class Cube : MonoBehaviour {
 	{
 		if (other.gameObject.name == "cube" || other.gameObject.name == "Plane")
 			move = false;
+		if (other.gameObject.name == "Arrowhead collider" && orphan == false)
+			Destroy (this.gameObject);
+		else
+			print (other.gameObject.name);
 	}
 	void OnTriggerEnter(Collider other)
 	{
-		string line=other.gameObject.name.Remove (0, 4);
-		lineno = int.Parse (line);
-		this.gameObject.transform.SetParent (GameObject.Find (other.gameObject.name+"x").GetComponent<Transform> ());
+		print (other.gameObject.name);
+		if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource"&& other.gameObject.name != "Arrowhead collider") {
+			string line = other.gameObject.name.Remove (0, 4);
+			lineno = int.Parse (line);
+			this.gameObject.transform.SetParent (GameObject.Find (other.gameObject.name + "x").GetComponent<Transform> ());
+		} else if (orphan == false)
+			Destroy (this.gameObject);
 	}
 	private void adjust(float input)
 	{
