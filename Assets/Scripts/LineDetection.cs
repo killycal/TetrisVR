@@ -29,7 +29,6 @@ public class LineDetection : MonoBehaviour{
 			string line=this.gameObject.name;
 			no = int.Parse (line.Remove(0,4));
 			GameObject.Find("Horizontal").GetComponent<Lines>().destroy.Add((int)no);
-			//this.gameObject.name = "LINE" + no;
 			GameObject.Find ("Horizontal").BroadcastMessage("adjust", no);
 			//BroadcastMessage(
 			//for (int i = no; i < 24; i++) {

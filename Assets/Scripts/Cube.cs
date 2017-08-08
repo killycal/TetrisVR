@@ -15,11 +15,6 @@ public class Cube : MonoBehaviour {
 	public Lines horizontal;
 
 	void Start () {
-		pos=this.transform.position;
-		end = pos;
-		end.Set (pos.x, pos.y-.1f, pos.z);
-		startTime = Time.time;
-		journeyLength = Vector3.Distance(pos, end);
 		horizontal = GameObject.Find ("Horizontal").GetComponent<Lines> ();
 	}
 	
@@ -34,7 +29,7 @@ public class Cube : MonoBehaviour {
 		}
 		else
 		{
-			if ((this.gameObject.transform.position.y-end.y<.001)&&(move==true)){
+			if ((this.gameObject.transform.position.y-end.y<.01)&&(move==true)){
 				horizontal.toDestroy = 0;
 				move=false;
 				horizontal.destroy.Clear();
@@ -47,17 +42,16 @@ public class Cube : MonoBehaviour {
 			} 
 		}
 	}
-	/*void OnCollisionEnter(Collision other)
+	void OnCollisionEnter(Collision other)
 	{
 		if (other.gameObject.name == "cube" || other.gameObject.name == "Plane")
 			move = false;
-	}*/
+	}
 	void OnTriggerEnter(Collider other)
 	{
 		string line=other.gameObject.name.Remove (0, 4);
 		lineno = int.Parse (line);
-		string name = "line (" + lineno+")";
-		this.gameObject.transform.SetParent (GameObject.Find (name).GetComponent<Transform> ());
+		this.gameObject.transform.SetParent (GameObject.Find (other.gameObject.name+"x").GetComponent<Transform> ());
 	}
 	private void adjust(float input)
 	{

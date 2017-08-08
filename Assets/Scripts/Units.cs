@@ -15,7 +15,7 @@ public class Units : MonoBehaviour {
 	void Start () {
 		pos=this.transform.position;
 		end = pos;
-		end.Set (pos.x, -.6f, pos.z);
+		end.Set (pos.x, 0, pos.z);
 		startTime = Time.time;
 		journeyLength = Vector3.Distance(pos, end);
 		horizontal = GameObject.Find ("Horizontal").GetComponent<Lines> ();
