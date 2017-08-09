@@ -7,7 +7,7 @@ public class Lines : MonoBehaviour {
 	// Use this for initialization
 	public List<int> destroy = new List<int>();
 	private int h;
-	public int toDestroy;
+	private int toDestroy;
 	void Start () {
 	}
 	

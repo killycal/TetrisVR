@@ -18,29 +18,29 @@ public class Instantiation : MonoBehaviour {
 		for (int i = 0; i < 10; i++) {
 			
 			Instantiate(Z2, one, Quaternion.identity);
-			yield return new WaitForSeconds (1);
+			yield return new WaitForSeconds (10);
 			Instantiate (T4, one, Quaternion.identity);
-			yield return new WaitForSeconds (1);
+			yield return new WaitForSeconds (10);
 			Instantiate (I, three, Quaternion.identity);
-			yield return new WaitForSeconds (1);
+			yield return new WaitForSeconds (10);
 			Instantiate (S, four, Quaternion.identity);
-			yield return new WaitForSeconds (1);
+			yield return new WaitForSeconds (10);
 			Instantiate(L2, three, Quaternion.identity);
-			yield return new WaitForSeconds (1);
+			yield return new WaitForSeconds (10);
 			Instantiate (J2, five, Quaternion.identity);
 			//yield return new WaitForSeconds (1);
 			//Instantiate (I, six, Quaternion.identity);
-			yield return new WaitForSeconds (1);
+			yield return new WaitForSeconds (10);
 			//Instantiate (I, seven, Quaternion.identity);
 			//yield return new WaitForSeconds (1);
 			Instantiate (O, six, Quaternion.identity);
 			//yield return new WaitForSeconds (1);
 			//Instantiate (I, nine, Quaternion.identity);
-			yield return new WaitForSeconds (1);
+			yield return new WaitForSeconds (10);
 			Instantiate (I, zero, Quaternion.identity);
-			yield return new WaitForSeconds (1);
+			yield return new WaitForSeconds (10);
 			Instantiate (L3, eight, Quaternion.identity);
-			yield return new WaitForSeconds (1);
+			yield return new WaitForSeconds (10);
 		}
 
 	}
