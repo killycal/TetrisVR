@@ -17,17 +17,23 @@ public class Instantiation : MonoBehaviour {
 	public IEnumerator generate(){
 		float h=8.0f;
 		speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed;
-		Batch ();
 		while (!gameOver) {
+			Batch ();
 			int p = 0;
+			int q = 0;
 			for (int j = 0; j < 3; j++) {
 				for (int i = 0; i < 7; i++) {
-					Instantiate (blocks [i], position [p%10], Quaternion.identity);
+					if (i % 2 == 0)
+						q = p % 10;
+					else 
+						q=(Mathf.Abs((p%10)-9));
+					print (q);
+					Instantiate (blocks [i], position [q], Quaternion.identity);
 					yield return new WaitForSeconds (h / speed);
 					p++;
 					if (gameOver)
 						break;
-					print (p % 10);
+					
 				}
 				if (gameOver)
 					break;
