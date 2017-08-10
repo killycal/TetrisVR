@@ -1,43 +1,103 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 public class Instantiation : MonoBehaviour {
 	public GameObject O,I,I2,J,J2,J3,J4,L,L2,L3,L4,Z,Z2,S,S2,T,T2,T3,T4;
-	public Vector3 zero,one,two,three,four,five,six,seven,eight,nine,ten;
+	public Vector3[] position;
 	private Time time;
 	private IEnumerator schedule;
 	private float speed=2.0f;
+	public bool gameOver=false;
+	public List<GameObject> blocks = new List<GameObject>();
 	void Start() {
 		schedule=generate ();
 		StartCoroutine (schedule);
 
 	}
 	public IEnumerator generate(){
-		//one=GameObject.Find("10").transform;
-		//Instantiate(I, one, Quaternion.identity);
 		float h=8.0f;
 		speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed;
-		for (int i = 0; i < 10; i++) {
-			
-			Instantiate(Z2, one, Quaternion.identity);
-			yield return new WaitForSeconds (h/speed);
-			Instantiate (T4, one, Quaternion.identity);
-			yield return new WaitForSeconds (h/speed);
-			Instantiate (I, three, Quaternion.identity);
-			yield return new WaitForSeconds (h/speed);
-			Instantiate (S, four, Quaternion.identity);
-			yield return new WaitForSeconds (h/speed);
-			Instantiate(L2, three, Quaternion.identity);
-			yield return new WaitForSeconds (h/speed);
-			Instantiate (J2, five, Quaternion.identity);
-			yield return new WaitForSeconds (h/speed);
-			Instantiate (O, six, Quaternion.identity);
-			yield return new WaitForSeconds (h/speed);
-			Instantiate (I, zero, Quaternion.identity);
-			yield return new WaitForSeconds (h/speed);
-			Instantiate (L3, eight, Quaternion.identity);
-			yield return new WaitForSeconds (h/speed);
+		Batch ();
+		while (!gameOver) {
+			int p = 0;
+			for (int j = 0; j < 3; j++) {
+				for (int i = 0; i < 7; i++) {
+					Instantiate (blocks [i], position [p%10], Quaternion.identity);
+					yield return new WaitForSeconds (h / speed);
+					p++;
+					if (gameOver)
+						break;
+					print (p % 10);
+				}
+				if (gameOver)
+					break;
+			}
 		}
-
+	}
+	private void Batch()
+	{
+		blocks.Clear ();
+		List<int> IDs=new List<int>();
+		for (int i = 0; i < 7; i++) {
+			int rando=((int)(Random.Range (0, 6)));
+			if (IDs.Contains(rando))
+				rando=((int)(Random.Range (0, 6)));
+			IDs.Add (rando);
+		}
+		for (int i = 0; i < 7; i++)
+			blocks.Add (intToGO (IDs [i]));
+	}
+	private GameObject intToGO(int rand)
+	{
+		GameObject piece;
+		int rot = Random.Range (0, 3);
+		if (rand == 0) {
+			if (rot == 1 || rot==2)
+				piece = I;
+			else
+				piece = I2;
+		} else if (rand == 1) {
+			if (rot == 0)
+				piece = J;
+			else if (rot == 1)
+				piece = J2;
+			else if (rot == 2)
+				piece = J3;
+			else
+				piece = J4;
+		} else if (rand == 2) {
+			if (rot == 0)
+				piece = L;
+			else if (rot == 1)
+				piece = L2;
+			else if (rot == 2)
+				piece = L3;
+			else
+				piece = L4;
+		} else if (rand == 3)
+			piece = O;
+		else if (rand == 4) {
+			if (rot == 1 || rot==2)
+				piece = S;
+			else
+				piece = S2;
+		} else if (rand == 5) {
+			if (rot == 0)
+				piece = T;
+			else if (rot == 1)
+				piece = T2;
+			else if (rot == 2)
+				piece = T3;
+			else
+				piece = T4;
+		} else {
+			if (rot == 1 || rot==2)
+				piece = Z;
+			else
+				piece = Z2;
+		}
+		return piece;
+			
 	}
 	//public void ChangeSpeed(float change){
 	//	speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed+change;
