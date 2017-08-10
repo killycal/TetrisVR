@@ -47,12 +47,12 @@ public class Cube : MonoBehaviour {
 			move = false;
 		if (other.gameObject.name == "Arrowhead collider" && orphan == false)
 			Destroy (this.gameObject);
-		else
-			print (other.gameObject.name);
+		//else
+			//print (other.gameObject.name);
 	}
 	void OnTriggerEnter(Collider other)
 	{
-		print (other.gameObject.name);
+		//print (other.gameObject.name);
 		if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource"&& other.gameObject.name != "Arrowhead collider") {
 			string line = other.gameObject.name.Remove (0, 4);
 			lineno = int.Parse (line);

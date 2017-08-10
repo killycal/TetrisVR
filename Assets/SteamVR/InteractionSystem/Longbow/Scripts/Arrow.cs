@@ -86,6 +86,10 @@ namespace Valve.VR.InteractionSystem
 					Destroy( gameObject );
 					return;
 				}
+				if (hit.collider.gameObject.name == "Cube") {
+					Destroy (gameObject);
+					return;
+				}
 			}
 
 			travelledFrames = 0;

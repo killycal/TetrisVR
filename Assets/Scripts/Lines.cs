@@ -7,13 +7,34 @@ public class Lines : MonoBehaviour {
 	// Use this for initialization
 	public List<int> destroy = new List<int>();
 	private int h;
-	private int toDestroy;
+	public int totalDestroy=0;
+	private bool flip=false;
+	public float speed=2.0f;
 	void Start () {
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (totalDestroy==10&&flip==false) {
+			speed += .5f;
+			//BroadcastMessage ("ChangeSpeed", 1.0f);
+			flip = true;
+		}
+		else if (totalDestroy==20&&flip==true) {
+			speed += .5f;
+			//BroadcastMessage ("ChangeSpeed", 1.0f);
+			flip = false;
+		}
+		else if (totalDestroy==30&&flip==false) {
+			speed += .5f;
+			//BroadcastMessage ("ChangeSpeed", 1.0f);
+			flip = true;
+		}
+		else if (totalDestroy==40&&flip==false) {
+			speed += .5f;
+			//BroadcastMessage ("ChangeSpeed", 1.0f);
+			flip = true;
+		}
 	}
 	public int getLineNo(string line){
 		int no;

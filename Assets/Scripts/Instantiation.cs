@@ -5,6 +5,7 @@ public class Instantiation : MonoBehaviour {
 	public Vector3 zero,one,two,three,four,five,six,seven,eight,nine,ten;
 	private Time time;
 	private IEnumerator schedule;
+	private float speed=2.0f;
 	void Start() {
 		schedule=generate ();
 		StartCoroutine (schedule);
@@ -12,43 +13,33 @@ public class Instantiation : MonoBehaviour {
 	}
 	public IEnumerator generate(){
 		//one=GameObject.Find("10").transform;
-		yield return new WaitForSeconds (0);
 		//Instantiate(I, one, Quaternion.identity);
-
+		float h=8.0f;
+		speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed;
 		for (int i = 0; i < 10; i++) {
 			
 			Instantiate(Z2, one, Quaternion.identity);
-			yield return new WaitForSeconds (10);
+			yield return new WaitForSeconds (h/speed);
 			Instantiate (T4, one, Quaternion.identity);
-			yield return new WaitForSeconds (10);
+			yield return new WaitForSeconds (h/speed);
 			Instantiate (I, three, Quaternion.identity);
-			yield return new WaitForSeconds (10);
+			yield return new WaitForSeconds (h/speed);
 			Instantiate (S, four, Quaternion.identity);
-			yield return new WaitForSeconds (10);
+			yield return new WaitForSeconds (h/speed);
 			Instantiate(L2, three, Quaternion.identity);
-			yield return new WaitForSeconds (10);
+			yield return new WaitForSeconds (h/speed);
 			Instantiate (J2, five, Quaternion.identity);
-			//yield return new WaitForSeconds (1);
-			//Instantiate (I, six, Quaternion.identity);
-			yield return new WaitForSeconds (10);
-			//Instantiate (I, seven, Quaternion.identity);
-			//yield return new WaitForSeconds (1);
+			yield return new WaitForSeconds (h/speed);
 			Instantiate (O, six, Quaternion.identity);
-			//yield return new WaitForSeconds (1);
-			//Instantiate (I, nine, Quaternion.identity);
-			yield return new WaitForSeconds (10);
+			yield return new WaitForSeconds (h/speed);
 			Instantiate (I, zero, Quaternion.identity);
-			yield return new WaitForSeconds (10);
+			yield return new WaitForSeconds (h/speed);
 			Instantiate (L3, eight, Quaternion.identity);
-			yield return new WaitForSeconds (10);
+			yield return new WaitForSeconds (h/speed);
 		}
 
 	}
+	//public void ChangeSpeed(float change){
+	//	speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed+change;
+	//}
 }
-
-/*for (int y = 0; y < 5; y++) {	for (int x = 0; x < 5; x++) {
- * GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				cube.AddComponent<Rigidbody>();
-				cube.transform.position = new Vector3(x, y, 0);
-			}
-		}*/
