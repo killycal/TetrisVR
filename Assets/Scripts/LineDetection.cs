@@ -11,7 +11,7 @@ public class LineDetection : MonoBehaviour{
 	//make a list to track collided objects
 	List<GameObject> cubes = new List<GameObject>();
 	void Start() {
-		
+
 	}
 	void FixedUpdate() {
 		cubes.Clear(); //clear the list of all tracked objects.
@@ -20,6 +20,8 @@ public class LineDetection : MonoBehaviour{
 		if (!cubes.Contains(other.gameObject)&&other.gameObject.name=="cube") //Populate list of cubes in contact with line
 		{
 			cubes.Add(other.gameObject);
+			if (this.gameObject.name == "Line23")
+				GameObject.Find("Top").GetComponent<Instantiation>().gameOver=true;
 		}
 		if (cubes.Count > 9) {
 			for (int i = 0; i < cubes.Count; i++)

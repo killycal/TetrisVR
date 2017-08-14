@@ -10,6 +10,7 @@ public class Lines : MonoBehaviour {
 	public int totalDestroy=0;
 	private bool flip=false;
 	public float speed=2.0f;
+	public int destruction=2;
 	void Start () {
 	}
 	
@@ -17,22 +18,18 @@ public class Lines : MonoBehaviour {
 	void Update () {
 		if (totalDestroy==10&&flip==false) {
 			speed += .5f;
-			//BroadcastMessage ("ChangeSpeed", 1.0f);
 			flip = true;
 		}
 		else if (totalDestroy==20&&flip==true) {
 			speed += .5f;
-			//BroadcastMessage ("ChangeSpeed", 1.0f);
 			flip = false;
 		}
 		else if (totalDestroy==30&&flip==false) {
 			speed += .5f;
-			//BroadcastMessage ("ChangeSpeed", 1.0f);
 			flip = true;
 		}
 		else if (totalDestroy==40&&flip==false) {
 			speed += .5f;
-			//BroadcastMessage ("ChangeSpeed", 1.0f);
 			flip = true;
 		}
 	}

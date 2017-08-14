@@ -21,25 +21,32 @@ public class Movement : MonoBehaviour {
 		startTime = Time.time;
 		journeyLength = Vector3.Distance(pos, end);
 		speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed;
+		if (this.gameObject.name == "Destruction Powerup(Clone)") {
+			speed = speed * 1.5f;
+		}
 	}
 	void FixedUpdate () {
 		if (move==true)
 		{
-			float distCovered = (Time.time - startTime) * GameObject.Find ("Horizontal").GetComponent<Lines> ().speed;
+			float distCovered = (Time.time - startTime) * speed;
 			float fracJourney = distCovered / journeyLength;
 			this.transform.position=Vector3.Lerp(pos,end,fracJourney);	
 		}
-		if (Time.time - startTime > 27 / GameObject.Find ("Horizontal").GetComponent<Lines> ().speed) {
+		if (Time.time - startTime > 27 / speed) {
 			DestroyObject (this.gameObject);
 		}
 	}
 	void OnCollisionEnter(Collision other)
 	{
-		if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider") {
+		//if this is a 
+		if ((this.gameObject.name=="Destruction Powerup(Clone)")&&(other.gameObject.name == "Bow Arrow" || other.gameObject.name == "FireSource" || other.gameObject.name == "Arrowhead collider")) {
+			Destroy (this.gameObject);
+			GameObject.Find ("Horizontal").GetComponent<Lines> ().destruction = 0;
+		}
+		else if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider" && other.gameObject.name !="Destruction Powerup(Clone)") {
 			move = false;
-
 			endTime = Time.time;
-		} //else {
+		}
 		else {
 			Vector3 impact = other.transform.position;
 			children=this.gameObject.GetComponentsInChildren<Component>();

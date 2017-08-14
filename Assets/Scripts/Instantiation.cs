@@ -9,32 +9,35 @@ public class Instantiation : MonoBehaviour {
 	private float speed=2.0f;
 	public bool gameOver=false;
 	public List<GameObject> blocks = new List<GameObject>();
+	public Vector3[] powerupPosition;
+	public GameObject D;
 	void Start() {
 		schedule=generate ();
 		StartCoroutine (schedule);
 
 	}
 	public IEnumerator generate(){
-		float h=8.0f;
+		float h=12.0f;
 		speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed;
 		while (!gameOver) {
 			Batch ();
 			int p = 0;
 			int q = 0;
 			for (int j = 0; j < 3; j++) {
+				yield return new WaitForSeconds (h / speed);
 				for (int i = 0; i < 7; i++) {
 					if (i % 2 == 0)
 						q = p % 10;
 					else 
 						q=(Mathf.Abs((p%10)-9));
-					print (q);
 					Instantiate (blocks [i], position [q], Quaternion.identity);
 					yield return new WaitForSeconds (h / speed);
 					p++;
 					if (gameOver)
 						break;
-					
+
 				}
+				Instantiate (D, powerupPosition[j%2], Quaternion.identity);
 				if (gameOver)
 					break;
 			}
@@ -103,7 +106,7 @@ public class Instantiation : MonoBehaviour {
 				piece = Z2;
 		}
 		return piece;
-			
+
 	}
 	//public void ChangeSpeed(float change){
 	//	speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed+change;

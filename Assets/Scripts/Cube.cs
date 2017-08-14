@@ -34,7 +34,6 @@ public class Cube : MonoBehaviour {
 				horizontal.destroy.Clear();
 			}
 		    else if (move == true) {
-			//this.gameObject.name = "Cube";
 			float distCovered = (Time.time - startTime) * speed;
 			float fracJourney = distCovered / journeyLength;
 			this.transform.position = Vector3.Lerp (pos, end, fracJourney);
@@ -53,12 +52,16 @@ public class Cube : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 		//print (other.gameObject.name);
-		if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource"&& other.gameObject.name != "Arrowhead collider") {
+		if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider") {
 			string line = other.gameObject.name.Remove (0, 4);
 			lineno = int.Parse (line);
 			this.gameObject.transform.SetParent (GameObject.Find (other.gameObject.name + "x").GetComponent<Transform> ());
 		} else if (orphan == false)
 			Destroy (this.gameObject);
+		else if (orphan == true && GameObject.Find ("Horizontal").GetComponent<Lines> ().destruction < 2) {
+			Destroy (this.gameObject);
+			GameObject.Find ("Horizontal").GetComponent<Lines> ().destruction++;
+		}
 	}
 	private void adjust(float input)
 	{
@@ -66,12 +69,11 @@ public class Cube : MonoBehaviour {
 		for (int i = 0; i < GameObject.Find ("Horizontal").GetComponent<Lines> ().destroy.Count; i++) {
 			if (lineno > GameObject.Find ("Horizontal").GetComponent<Lines> ().destroy[i])
 				count++;
-		move = true;
-		pos = this.gameObject.transform.position;
-		end.Set (pos.x, pos.y - 1f *count, pos.z);
-		startTime = Time.time;
-		journeyLength = Vector3.Distance (pos, end);
+			move = true;
+			pos = this.gameObject.transform.position;
+			end.Set (pos.x, pos.y - 1f *count, pos.z);
+			startTime = Time.time;
+			journeyLength = Vector3.Distance (pos, end);
+		}
 	}
 }
-}
- 
