@@ -32,6 +32,7 @@ public class LineDetection : MonoBehaviour{
 			GameObject.Find("Horizontal").GetComponent<Lines>().destroy.Add((int)no);
 			GameObject.Find ("Horizontal").BroadcastMessage("adjust", no);
 			GameObject.Find ("Horizontal").GetComponent<Lines> ().totalDestroy++;
+			GameObject.Find ("Back").GetComponent<SoundHandler> ().PlayLine();
 		}
 
 	}

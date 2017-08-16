@@ -12,7 +12,9 @@ public class Movement : MonoBehaviour {
 	private float endTime;
 	private float journeyLength;
 	private bool move=true;
+	private bool hit=false;
 	private Component[] children;
+	private GameObject arrow;
 
 	void Start () {
 		pos=this.transform.position;
@@ -35,17 +37,19 @@ public class Movement : MonoBehaviour {
 		if (Time.time - startTime > 27 / speed) {
 			DestroyObject (this.gameObject);
 		}
+		if (Time.time - endTime > .25f&&hit==true) {
+			Destroy (GameObject.Find("Arrow Scale Parent"));
+			hit = false;
+		}
 	}
 	void OnCollisionEnter(Collision other)
 	{
-		//if this is a 
 		if ((this.gameObject.name=="Destruction Powerup(Clone)")&&(other.gameObject.name == "Bow Arrow" || other.gameObject.name == "FireSource" || other.gameObject.name == "Arrowhead collider")) {
 			Destroy (this.gameObject);
 			GameObject.Find ("Horizontal").GetComponent<Lines> ().destruction = 0;
 		}
 		else if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider" && other.gameObject.name !="Destruction Powerup(Clone)") {
 			move = false;
-			endTime = Time.time;
 		}
 		else {
 			Vector3 impact = other.transform.position;
@@ -59,7 +63,10 @@ public class Movement : MonoBehaviour {
 					childno = i;
 				}
 			}
+			GameObject.Find ("Back").GetComponent<SoundHandler> ().PlayDest();
 			Destroy (children[childno].gameObject);
+			endTime = Time.time;
+			hit = true;
 		}
 	}
 	public bool getMove()

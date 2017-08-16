@@ -44,10 +44,8 @@ public class Cube : MonoBehaviour {
 	{
 		if (other.gameObject.name == "cube" || other.gameObject.name == "Plane")
 			move = false;
-		if (other.gameObject.name == "Arrowhead collider" && orphan == false)
-			Destroy (this.gameObject);
-		//else
-			//print (other.gameObject.name);
+		else if (other.gameObject.name == "Arrowhead collider" && orphan == false)
+			destruct();
 	}
 	void OnTriggerEnter(Collider other)
 	{
@@ -56,12 +54,13 @@ public class Cube : MonoBehaviour {
 			string line = other.gameObject.name.Remove (0, 4);
 			lineno = int.Parse (line);
 			this.gameObject.transform.SetParent (GameObject.Find (other.gameObject.name + "x").GetComponent<Transform> ());
-		} else if (orphan == false)
-			Destroy (this.gameObject);
+		} 
 		else if (orphan == true && GameObject.Find ("Horizontal").GetComponent<Lines> ().destruction < 2) {
-			Destroy (this.gameObject);
+			destruct ();
 			GameObject.Find ("Horizontal").GetComponent<Lines> ().destruction++;
 		}
+		else if (orphan == false)
+			destruct();
 	}
 	private void adjust(float input)
 	{
@@ -75,5 +74,10 @@ public class Cube : MonoBehaviour {
 			startTime = Time.time;
 			journeyLength = Vector3.Distance (pos, end);
 		}
+	}
+	private void destruct()
+	{
+		GameObject.Find ("Back").GetComponent<SoundHandler> ().PlayDest();
+		Destroy (this.gameObject);
 	}
 }
