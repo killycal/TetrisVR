@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e3d849a71cf1896458f0932f079b66a3
-timeCreated: 1502942335
+timeCreated: 1503002251
 licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
@@ -30,7 +30,7 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: normalStrength
       value:
-        scalar[0]: 4
+        scalar[0]: 2
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
@@ -128,7 +128,7 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: waveSize
       value:
-        scalar[0]: 5
+        scalar[0]: 30
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
