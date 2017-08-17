@@ -12,7 +12,7 @@ public class Cube : MonoBehaviour {
 	private float journeyLength;
 	private bool move=false;
 	private float lineno=-1;
-	public Lines horizontal;
+	private Lines horizontal;
 
 	void Start () {
 		horizontal = GameObject.Find ("Horizontal").GetComponent<Lines> ();
