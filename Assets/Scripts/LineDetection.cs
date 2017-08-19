@@ -26,11 +26,9 @@ public class LineDetection : MonoBehaviour{
 		if (cubes.Count > 9) {
 			for (int i = 0; i < cubes.Count; i++)
 				Destroy (cubes [i]);
-			float no;
-			string line=this.gameObject.name;
-			no = int.Parse (line.Remove(0,4));
-			GameObject.Find("Horizontal").GetComponent<Lines>().destroy.Add((int)no);
-			GameObject.Find ("Horizontal").BroadcastMessage("adjust", no);
+			int no = int.Parse (this.gameObject.name.Remove(0,4));
+			GameObject.Find("Horizontal").GetComponent<Lines>().destroy.Add(no);
+			GameObject.Find ("Horizontal").BroadcastMessage("adjust");
 			GameObject.Find ("Horizontal").GetComponent<Lines> ().totalDestroy++;
 			GameObject.Find ("Back").GetComponent<SoundHandler> ().PlayLine();
 		}

@@ -42,6 +42,18 @@ public class Instantiation : MonoBehaviour {
 					break;
 			}
 		}
+		/*Instantiate (I, position [1], Quaternion.identity);
+		yield return new WaitForSeconds (h / speed);
+		Instantiate (O, position [1], Quaternion.identity);
+		yield return new WaitForSeconds (h / speed);
+		Instantiate (O, position [3], Quaternion.identity);
+		yield return new WaitForSeconds (h / speed);
+		Instantiate (O, position [5], Quaternion.identity);
+		yield return new WaitForSeconds (h / speed);
+		Instantiate (O, position [7], Quaternion.identity);
+		yield return new WaitForSeconds (h / speed);
+		Instantiate (O, position [9], Quaternion.identity);
+		yield return new WaitForSeconds (h / speed);*/
 	}
 	private void Batch()
 	{

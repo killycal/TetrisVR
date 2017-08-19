@@ -11,11 +11,13 @@ public class Cube : MonoBehaviour {
 	private float startTime;
 	private float journeyLength;
 	private bool move=false;
-	private float lineno=-1;
+	private int lineno=-1;
 	private Lines horizontal;
+	public List<float> ypos = new List<float>();
 
 	void Start () {
 		horizontal = GameObject.Find ("Horizontal").GetComponent<Lines> ();
+		initYPos ();
 	}
 	
 
@@ -62,22 +64,32 @@ public class Cube : MonoBehaviour {
 		else if (orphan == false)
 			destruct();
 	}
-	private void adjust(float input)
+	private void adjust()
 	{
 		int count = 0;
 		for (int i = 0; i < GameObject.Find ("Horizontal").GetComponent<Lines> ().destroy.Count; i++) {
-			if (lineno > GameObject.Find ("Horizontal").GetComponent<Lines> ().destroy[i])
+			if (lineno > GameObject.Find ("Horizontal").GetComponent<Lines> ().destroy [i]) {
 				count++;
-			move = true;
-			pos = this.gameObject.transform.position;
-			end.Set (pos.x, pos.y - 1f *count, pos.z);
-			startTime = Time.time;
-			journeyLength = Vector3.Distance (pos, end);
+				move = true;
+			}
 		}
+		pos = this.gameObject.transform.position;
+		end.Set (pos.x, ypos[lineno-count], pos.z);
+		startTime = Time.time;
+		journeyLength = Vector3.Distance (pos, end);
+		print (count);
 	}
 	private void destruct()
 	{
 		GameObject.Find ("Back").GetComponent<SoundHandler> ().PlayDest();
 		Destroy (this.gameObject);
+	}
+	private void initYPos()
+	{
+		float seed = 2.5f;
+		for (int i = 0; i < 23; i++) {
+			ypos.Add (seed);
+			seed += 1f;
+		}
 	}
 }
