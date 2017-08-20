@@ -11,6 +11,8 @@ public class Lines : MonoBehaviour {
 	private bool flip=false;
 	public float speed=2.0f;
 	public int destruction=2;
+	public int points=0;
+	public int level=0;
 	void Start () {
 	}
 	
@@ -19,18 +21,22 @@ public class Lines : MonoBehaviour {
 		if (totalDestroy==10&&flip==false) {
 			speed += .5f;
 			flip = true;
+			level = 1;
 		}
 		else if (totalDestroy==20&&flip==true) {
 			speed += .5f;
 			flip = false;
+			level = 2;
 		}
 		else if (totalDestroy==30&&flip==false) {
 			speed += .5f;
 			flip = true;
+			level = 3;
 		}
 		else if (totalDestroy==40&&flip==false) {
 			speed += .5f;
 			flip = true;
+			level = 4;
 		}
 	}
 	public int getLineNo(string line){
