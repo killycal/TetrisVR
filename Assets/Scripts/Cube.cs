@@ -74,10 +74,11 @@ public class Cube : MonoBehaviour {
 			}
 		}
 		pos = this.gameObject.transform.position;
-		if (count>lineno)
-			end.Set(pos.x, ypos[lineno-count], pos.z);
-		else
-		end.Set (pos.x, ypos[lineno-count], pos.z);
+		if (count > lineno)
+			end.Set (pos.x, ypos [0], pos.z);
+		else {
+			end.Set (pos.x, ypos [lineno - count], pos.z);
+		}
 		startTime = Time.time;
 		journeyLength = Vector3.Distance (pos, end);
 		print (count);
