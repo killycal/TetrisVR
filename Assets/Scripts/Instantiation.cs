@@ -23,14 +23,14 @@ public class Instantiation : MonoBehaviour {
 			Batch ();
 			int p = 0;
 			int q = 0;
-			for (int j = 0; j < 3; j++) {
+			for (int j = 0; j < 1; j++) {
 				yield return new WaitForSeconds (h / speed);
 				for (int i = 0; i < 7; i++) {
 					if (i % 2 == 0)
 						q = p % 10;
 					else 
 						q=(Mathf.Abs((p%10)-9));
-					Instantiate (blocks [i], position [q], Quaternion.identity);
+					Instantiate (blocks [i], checkPos(q,i), Quaternion.identity);
 					yield return new WaitForSeconds (h / speed);
 					p++;
 					if (gameOver)
@@ -42,27 +42,35 @@ public class Instantiation : MonoBehaviour {
 					break;
 			}
 		}
-		/*Instantiate (I, position [1], Quaternion.identity);
-		yield return new WaitForSeconds (h / speed);
-		Instantiate (O, position [1], Quaternion.identity);
-		yield return new WaitForSeconds (h / speed);
-		Instantiate (O, position [3], Quaternion.identity);
-		yield return new WaitForSeconds (h / speed);
-		Instantiate (O, position [5], Quaternion.identity);
-		yield return new WaitForSeconds (h / speed);
-		Instantiate (O, position [7], Quaternion.identity);
-		yield return new WaitForSeconds (h / speed);
-		Instantiate (O, position [9], Quaternion.identity);
-		yield return new WaitForSeconds (h / speed);*/
+	}
+	private Vector3 checkPos(int q, int i)
+	{
+		if (blocks [i] == I2) {
+			if (q > 6)
+				return position [6];
+			else
+				return position [q];
+		} else if (blocks [i] == L2 || blocks [i] == J2 || blocks [i] == L4 || blocks [i] == J4 || blocks [i] == Z || blocks [i] == S || blocks [i] == T || blocks [i] == T3) {
+			if (q > 7)
+				return position [7];
+			else
+				return position [q];
+		} else if (blocks [i] != I) {
+			if (q > 8)
+				return position [8];
+			else
+				return position [q];
+		} else
+			return position [q];
 	}
 	private void Batch()
 	{
 		blocks.Clear ();
 		List<int> IDs=new List<int>();
 		for (int i = 0; i < 7; i++) {
-			int rando=((int)(Random.Range (0, 6)));
+			int rando=((int)(Random.Range (0, 7)));
 			if (IDs.Contains(rando))
-				rando=((int)(Random.Range (0, 6)));
+				rando=((int)(Random.Range (0, 7)));
 			IDs.Add (rando);
 		}
 		for (int i = 0; i < 7; i++)

@@ -6,18 +6,9 @@ public class Units : MonoBehaviour {
 	private Vector3 pos;
 	private Vector3 end;
 	public float speed = 1.0f;
-	private float startTime;
-	private float journeyLength;
-	private bool move=false;
-	private float lineno=-1;
 	public Lines horizontal;
 	// Use this for initialization
 	void Start () {
-		pos=this.transform.position;
-		end = pos;
-		end.Set (pos.x, 0, pos.z);
-		startTime = Time.time;
-		journeyLength = Vector3.Distance(pos, end);
 		horizontal = GameObject.Find ("Horizontal").GetComponent<Lines> ();
 	}
 	/*
