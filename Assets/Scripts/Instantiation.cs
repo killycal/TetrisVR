@@ -24,7 +24,6 @@ public class Instantiation : MonoBehaviour {
 			int p = 0;
 			int q = 0;
 			for (int j = 0; j < 1; j++) {
-				yield return new WaitForSeconds (h / speed);
 				for (int i = 0; i < 7; i++) {
 					if (i % 2 == 0)
 						q = p % 10;

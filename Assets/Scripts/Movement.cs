@@ -34,7 +34,7 @@ public class Movement : MonoBehaviour {
 			float fracJourney = distCovered / journeyLength;
 			this.transform.position=Vector3.Lerp(pos,end,fracJourney);	
 		}
-		if (Time.time - startTime > 27 / speed) {
+		if (Time.time - startTime > 70 / speed) {
 			DestroyObject (this.gameObject);
 		}
 		if (Time.time - endTime > .25f&&hit==true) {
