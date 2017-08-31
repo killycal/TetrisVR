@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour {
 	private bool hit=false;
 	private Component[] children;
 	private GameObject arrow;
+	public GameObject effect; 
 
 	void Start () {
 		pos=this.transform.position;
@@ -37,7 +38,7 @@ public class Movement : MonoBehaviour {
 		if (Time.time - startTime > 70 / speed) {
 			DestroyObject (this.gameObject);
 		}
-		if (Time.time - endTime > .25f&&hit==true) {
+		if (Time.time - endTime > .05f&&hit==true) {
 			Destroy (GameObject.Find("Arrow Scale Parent"));
 			hit = false;
 		}
@@ -64,6 +65,8 @@ public class Movement : MonoBehaviour {
 				}
 			}
 			GameObject.Find ("Back").GetComponent<SoundHandler> ().PlayDest();
+			effect.GetComponent<ParticleSystem> ().startColor = new Color (children [childno].gameObject.GetComponent<Renderer>().material.color.r,children [childno].gameObject.GetComponent<Renderer>().material.color.g, children [childno].gameObject.GetComponent<Renderer>().material.color.b,1);
+			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity);
 			Destroy (children[childno].gameObject);
 			endTime = Time.time;
 			hit = true;
