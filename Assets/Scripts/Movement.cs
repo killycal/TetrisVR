@@ -16,6 +16,7 @@ public class Movement : MonoBehaviour {
 	private Component[] children;
 	private GameObject arrow;
 	public GameObject effect; 
+	private Color color;
 
 	void Start () {
 		pos=this.transform.position;
@@ -27,6 +28,7 @@ public class Movement : MonoBehaviour {
 		if (this.gameObject.name == "Destruction Powerup(Clone)") {
 			speed = speed * 1.5f;
 		}
+		color= new Color (this.gameObject.GetComponentInChildren<Renderer>().material.color.r,this.gameObject.GetComponentInChildren<Renderer>().material.color.g, this.gameObject.GetComponentInChildren<Renderer>().material.color.b,1);
 	}
 	void FixedUpdate () {
 		if (move==true)
@@ -65,7 +67,7 @@ public class Movement : MonoBehaviour {
 				}
 			}
 			GameObject.Find ("Back").GetComponent<SoundHandler> ().PlayDest();
-			effect.GetComponent<ParticleSystem> ().startColor = new Color (children [childno].gameObject.GetComponent<Renderer>().material.color.r,children [childno].gameObject.GetComponent<Renderer>().material.color.g, children [childno].gameObject.GetComponent<Renderer>().material.color.b,1);
+			effect.GetComponent<ParticleSystem> ().startColor = color;
 			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity);
 			Destroy (children[childno].gameObject);
 			endTime = Time.time;
