@@ -66,10 +66,9 @@ public class Movement : MonoBehaviour {
 					childno = i;
 				}
 			}
-			GameObject.Find ("Back").GetComponent<SoundHandler> ().PlayDest();
 			effect.GetComponent<ParticleSystem> ().startColor = color;
-			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity);
-			Destroy (children[childno].gameObject);
+			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
+			children[childno].gameObject.GetComponent<Cube>().destruct();
 			endTime = Time.time;
 			hit = true;
 		}

@@ -14,16 +14,18 @@ public class Cube : MonoBehaviour {
 	private int lineno=-1;
 	private Lines horizontal;
 	public List<float> ypos = new List<float>();
+	private Animator anim;
 
 	void Start () {
 		horizontal = GameObject.Find ("Horizontal").GetComponent<Lines> ();
 		initYPos ();
+		anim = this.gameObject.GetComponent<Animator> ();
 	}
-	
 
 	void FixedUpdate () {
 		if (!orphan) {
 			if (!this.gameObject.GetComponentInParent<Movement> ().getMove ()) {
+				Destroy (this.gameObject.GetComponent<Animator> ());
 				this.gameObject.transform.parent = GameObject.Find("Cubes").transform;
 				orphan = true;
 				this.gameObject.name = "cube";
@@ -58,7 +60,7 @@ public class Cube : MonoBehaviour {
 			this.gameObject.transform.SetParent (GameObject.Find (other.gameObject.name + "x").GetComponent<Transform> ());
 		} 
 		else if (orphan == true && GameObject.Find ("Horizontal").GetComponent<Lines> ().destruction < 2) {
-			destruct ();
+			Destroy (this.gameObject);
 			GameObject.Find ("Horizontal").GetComponent<Lines> ().destruction++;
 		}
 		else if (orphan == false)
@@ -83,10 +85,10 @@ public class Cube : MonoBehaviour {
 		journeyLength = Vector3.Distance (pos, end);
 		print (count);
 	}
-	private void destruct()
+	public void destruct()
 	{
 		GameObject.Find ("Back").GetComponent<SoundHandler> ().PlayDest();
-		Destroy (this.gameObject);
+		anim.SetBool ("Hit", true);
 	}
 	private void initYPos()
 	{
@@ -95,5 +97,9 @@ public class Cube : MonoBehaviour {
 			ypos.Add (seed);
 			seed += 1f;
 		}
+	}
+	private void delete()
+	{
+		Destroy (this.gameObject);
 	}
 }
