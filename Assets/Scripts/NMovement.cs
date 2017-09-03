@@ -25,7 +25,7 @@ public class NMovement : MonoBehaviour {
 		startTime = Time.time;
 		journeyLength = Vector3.Distance(pos, end);
 		speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed;
-		color= new Color (this.gameObject.GetComponentInChildren<Renderer>().material.color.r,this.gameObject.GetComponentInChildren<Renderer>().material.color.g, this.gameObject.GetComponentInChildren<Renderer>().material.color.b,1);
+		//color= new Color (this.gameObject.GetComponentInChildren<Renderer>().material.color.r,this.gameObject.GetComponentInChildren<Renderer>().material.color.g, this.gameObject.GetComponentInChildren<Renderer>().material.color.b,1);
 	}
 	void FixedUpdate () {
 		if (move==true)
@@ -50,6 +50,8 @@ public class NMovement : MonoBehaviour {
 		}
 		else if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider" && other.gameObject.name !="Destruction Powerup(Clone)") {
 			move = false;
+			Destroy (other.gameObject);//.GetComponent<Cube> ().destruct();
+			BroadcastMessage ("destruct");
 		}
 		else {
 			Vector3 impact = other.transform.position;
@@ -58,15 +60,15 @@ public class NMovement : MonoBehaviour {
 			int childno=0;
 			for (int i = 3; i < children.Length; i++) {
 				float dist = Vector3.Distance (impact, children [i].gameObject.transform.position);
-				if (dist < shortest&&children[i].gameObject.name=="Cube") {
+				if (dist < shortest&&children[i].gameObject.name=="NCube"||children[i].gameObject.name=="ZCube") {
 					shortest = dist;
 					childno = i;
 				}
 					
 			}
-			effect.GetComponent<ParticleSystem> ().startColor = color;
+			//effect.GetComponent<ParticleSystem> ().startColor = color;
 			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
-			children[childno].gameObject.GetComponent<Cube>().destruct();
+			children[childno].gameObject.GetComponent<NCube>().destruct();
 			endTime = Time.time;
 			hit = true;
 		}
