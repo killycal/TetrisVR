@@ -25,9 +25,6 @@ public class NMovement : MonoBehaviour {
 		startTime = Time.time;
 		journeyLength = Vector3.Distance(pos, end);
 		speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed;
-		if (this.gameObject.name == "Destruction Powerup(Clone)") {
-			speed = speed * 1.5f;
-		}
 		color= new Color (this.gameObject.GetComponentInChildren<Renderer>().material.color.r,this.gameObject.GetComponentInChildren<Renderer>().material.color.g, this.gameObject.GetComponentInChildren<Renderer>().material.color.b,1);
 	}
 	void FixedUpdate () {
@@ -65,6 +62,7 @@ public class NMovement : MonoBehaviour {
 					shortest = dist;
 					childno = i;
 				}
+					
 			}
 			effect.GetComponent<ParticleSystem> ().startColor = color;
 			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity, this.gameObject.transform);

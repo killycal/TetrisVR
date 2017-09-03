@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 public class Instantiation : MonoBehaviour {
-	public GameObject O,I,I2,J,J2,J3,J4,L,L2,L3,L4,Z,Z2,S,S2,T,T2,T3,T4;
+	public GameObject O,I,I2,J,J2,J3,J4,L,L2,L3,L4,Z,Z2,S,S2,T,T2,T3,T4,NT;
 	public Vector3[] position;
 	private Time time;
 	private IEnumerator schedule;
