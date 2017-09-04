@@ -14,15 +14,6 @@ public class NCube : MonoBehaviour {
 		if (this.gameObject.name!="ZCube")
 			this.gameObject.name = "NCube";
 	}
-
-	void OnCollisionEnter(Collision other)
-	{
-		if (other.gameObject.name == "cube") {
-			other.gameObject.GetComponent<Cube> ().destruct ();
-			destruct ();
-			GameObject.Find ("ZCube").GetComponent<NCube> ().destruct ();
-		}
-	}
 	public void destruct()
 	{
 		GameObject.Find ("Back").GetComponent<SoundHandler> ().PlayDest();

@@ -14,9 +14,9 @@ public class NMovement : MonoBehaviour {
 	private bool move=true;
 	private bool hit=false;
 	private Component[] children;
-	private GameObject arrow;
 	public GameObject effect; 
 	private Color color;
+	private bool broken=false;
 
 	void Start () {
 		pos=this.transform.position;
@@ -64,7 +64,7 @@ public class NMovement : MonoBehaviour {
 				BroadcastMessage ("destruct");
 			}
 			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
-			children[childno].gameObject.GetComponent<NCube>().destruct();
+			//children[childno].gameObject.GetComponent<NCube>().destruct();
 			endTime = Time.time;
 			hit = true;
 		} else if (other.gameObject.name == "cube") {	//if Ncube hits cube
@@ -72,17 +72,22 @@ public class NMovement : MonoBehaviour {
 			children=this.gameObject.GetComponentsInChildren<Component>();
 			float shortest=float.MaxValue;
 			int childno=0;
+			int z = 0;
 			for (int i = 3; i < children.Length; i++) {
 				float dist = Vector3.Distance (impact, children [i].gameObject.transform.position);
-				if (dist < shortest&&children[i].gameObject.name=="NCube"||children[i].gameObject.name=="ZCube") {
+				if (dist < shortest&&children[i].gameObject.name=="NCube") {
 					shortest = dist;
 					childno = i;
 				}
-
+				if (children [i].gameObject.name == "ZCube")
+					z = i;
 			}
 			//effect.GetComponent<ParticleSystem> ().startColor = color;
 			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
 			children[childno].gameObject.GetComponent<NCube>().destruct();
+			if (broken==false)
+				children [z].gameObject.GetComponent<NCube> ().destruct ();
+			broken = true;
 			endTime = Time.time;
 			Destroy (other.gameObject);
 		}
