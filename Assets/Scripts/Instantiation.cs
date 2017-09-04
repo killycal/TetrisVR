@@ -15,7 +15,6 @@ public class Instantiation : MonoBehaviour {
 	void Start() {
 		schedule=generate ();
 		StartCoroutine (schedule);
-
 	}
 	public IEnumerator generate(){
 		float h=12.0f;
