@@ -44,16 +44,49 @@ public class NMovement : MonoBehaviour {
 	}
 	void OnCollisionEnter(Collision other)
 	{
-		if ((this.gameObject.name=="Destruction Powerup(Clone)")&&(other.gameObject.name == "Bow Arrow" || other.gameObject.name == "FireSource" || other.gameObject.name == "Arrowhead collider")) {
-			Destroy (this.gameObject);
-			GameObject.Find ("Horizontal").GetComponent<Lines> ().destruction = 0;
+		 if (other.gameObject.name == "Bow Arrow" || other.gameObject.name == "FireSource" || other.gameObject.name == "Arrowhead collider") {
+			
+			Vector3 impact = other.transform.position;
+			children=this.gameObject.GetComponentsInChildren<Component>();
+			float shortest=float.MaxValue;
+			int childno=0;
+			for (int i = 3; i < children.Length; i++) {
+				float dist = Vector3.Distance (impact, children [i].gameObject.transform.position);
+				if (dist < shortest&&children[i].gameObject.name=="NCube"||children[i].gameObject.name=="ZCube") {
+					shortest = dist;
+					childno = i;
+				}
+
+			}
+			//effect.GetComponent<ParticleSystem> ().startColor = color;
+
+			if (children [childno].gameObject.name=="ZCube") {//if zcube is hit blow everything up
+				BroadcastMessage ("destruct");
+			}
+			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
+			children[childno].gameObject.GetComponent<NCube>().destruct();
+			endTime = Time.time;
+			hit = true;
+		} else if (other.gameObject.name == "cube") {	//if Ncube hits cube
+			Vector3 impact = other.transform.position;
+			children=this.gameObject.GetComponentsInChildren<Component>();
+			float shortest=float.MaxValue;
+			int childno=0;
+			for (int i = 3; i < children.Length; i++) {
+				float dist = Vector3.Distance (impact, children [i].gameObject.transform.position);
+				if (dist < shortest&&children[i].gameObject.name=="NCube"||children[i].gameObject.name=="ZCube") {
+					shortest = dist;
+					childno = i;
+				}
+
+			}
+			//effect.GetComponent<ParticleSystem> ().startColor = color;
+			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
+			children[childno].gameObject.GetComponent<NCube>().destruct();
+			endTime = Time.time;
+			Destroy (other.gameObject);
 		}
-		else if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider" && other.gameObject.name !="Destruction Powerup(Clone)") {
-			move = false;
-			Destroy (other.gameObject);//.GetComponent<Cube> ().destruct();
-			BroadcastMessage ("destruct");
-		}
-		else {
+		else {		//if NCube hits floor
 			Vector3 impact = other.transform.position;
 			children=this.gameObject.GetComponentsInChildren<Component>();
 			float shortest=float.MaxValue;
@@ -70,7 +103,6 @@ public class NMovement : MonoBehaviour {
 			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
 			children[childno].gameObject.GetComponent<NCube>().destruct();
 			endTime = Time.time;
-			hit = true;
 		}
 	}
 	public bool getMove()

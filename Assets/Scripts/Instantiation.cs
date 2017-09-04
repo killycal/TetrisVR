@@ -36,9 +36,10 @@ public class Instantiation : MonoBehaviour {
 						break;
 
 				}
-				yield return new WaitForSeconds (h / speed);
+
 				Instantiate (NT, position [4], Quaternion.identity);
 				Instantiate (D, powerupPosition[j%2], Quaternion.identity);
+				yield return new WaitForSeconds (h / speed);
 				if (gameOver)
 					break;
 			}
