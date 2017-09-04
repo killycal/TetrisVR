@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 public class Instantiation : MonoBehaviour {
-	public GameObject O,I,I2,J,J2,J3,J4,L,L2,L3,L4,Z,Z2,S,S2,T,T2,T3,T4,NT;
+	public GameObject O,I,I2,J,J2,J3,J4,L,L2,L3,L4,Z,Z2,S,S2,T,T2,T3,T4;
+	public List<GameObject> NegBlock= new List<GameObject>();
 	public Vector3[] position;
 	private Time time;
 	private IEnumerator schedule;
@@ -21,7 +22,7 @@ public class Instantiation : MonoBehaviour {
 		speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed;
 		while (!gameOver) {
 			Batch ();
-			int p = 0;
+			int p = Random.Range(0,9);
 			int q = 0;
 			for (int j = 0; j < 1; j++) {
 				for (int i = 0; i < 7; i++) {
@@ -37,7 +38,7 @@ public class Instantiation : MonoBehaviour {
 
 				}
 
-				Instantiate (NT, position [4], Quaternion.identity);
+				Instantiate (NegBlock[Random.Range(0, NegBlock.Count)], position [Random.Range(0,8)], Quaternion.identity);
 				Instantiate (D, powerupPosition[j%2], Quaternion.identity);
 				yield return new WaitForSeconds (h / speed);
 				if (gameOver)
