@@ -47,13 +47,17 @@ public class Movement : MonoBehaviour {
 	}
 	void OnCollisionEnter(Collision other)
 	{
-		if ((this.gameObject.name=="Destruction Powerup(Clone)")&&(other.gameObject.name == "Bow Arrow" || other.gameObject.name == "FireSource" || other.gameObject.name == "Arrowhead collider")) {
+		if ((this.gameObject.name == "Destruction Powerup(Clone)") && (other.gameObject.name == "Bow Arrow" || other.gameObject.name == "FireSource" || other.gameObject.name == "Arrowhead collider")) {
 			Destroy (this.gameObject);
 			GameObject.Find ("Horizontal").GetComponent<Lines> ().destruction = 0;
+		} else if (other.gameObject.CompareTag("Text")) {
+			print ("text");
+			Destroy (other.gameObject.GetComponent<Collider>());
+			other.gameObject.GetComponent<GoCubes> ().destruct ();
 		}
-		else if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider" && other.gameObject.name !="Destruction Powerup(Clone)") {
+		else if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider" && other.gameObject.name != "Destruction Powerup(Clone)") {
 			move = false;
-		}
+		} 
 		else {
 			Vector3 impact = other.transform.position;
 			children=this.gameObject.GetComponentsInChildren<Component>();

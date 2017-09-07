@@ -6,6 +6,7 @@ using System.Collections;
 public class SoundHandler : MonoBehaviour
 {
 	public AudioClip[] sounds;
+	public AudioClip song;
 	public void PlayDest()
 	{	
 		//GetComponent<AudioSource>().Stop();
@@ -14,5 +15,9 @@ public class SoundHandler : MonoBehaviour
 	public void PlayLine()
 	{
 		GetComponent<AudioSource> ().PlayOneShot (sounds [0],1);
+	}
+	public void PlaySong()
+	{
+		GetComponent<AudioSource> ().PlayOneShot (song);
 	}
 }

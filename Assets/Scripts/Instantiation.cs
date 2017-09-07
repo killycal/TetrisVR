@@ -12,13 +12,25 @@ public class Instantiation : MonoBehaviour {
 	public List<GameObject> blocks = new List<GameObject>();
 	public Vector3[] powerupPosition;
 	public GameObject D;
-	void Start() {
+	private bool playing=false;
+	void StartIt() {
 		schedule=generate ();
 		StartCoroutine (schedule);
+	}
+	void Update()
+	{
+		if (playing == false) {
+			if (gameOver == false) {
+				StartIt ();
+				playing = true;
+			}
+		}
+		
 	}
 	public IEnumerator generate(){
 		float h=12.0f;
 		speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed;
+		GameObject.Find ("Back").GetComponent<SoundHandler> ().PlaySong ();
 		while (!gameOver) {
 			Batch ();
 			int p = Random.Range(0,9);
