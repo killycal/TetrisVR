@@ -25,7 +25,7 @@ public class NMovement : MonoBehaviour {
 		startTime = Time.time;
 		journeyLength = Vector3.Distance(pos, end);
 		speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed;
-		//color= new Color (this.gameObject.GetComponentInChildren<Renderer>().material.color.r,this.gameObject.GetComponentInChildren<Renderer>().material.color.g, this.gameObject.GetComponentInChildren<Renderer>().material.color.b,1);
+		color= new Color (this.gameObject.GetComponentInChildren<Renderer>().material.color.r,this.gameObject.GetComponentInChildren<Renderer>().material.color.g, this.gameObject.GetComponentInChildren<Renderer>().material.color.b,1);
 	}
 	void FixedUpdate () {
 		if (move==true)
@@ -58,10 +58,11 @@ public class NMovement : MonoBehaviour {
 				}
 
 			}
-			//effect.GetComponent<ParticleSystem> ().startColor = color;
+			effect.GetComponent<ParticleSystem> ().startColor = color;
 
 			if (children [childno].gameObject.name=="ZCube") {//if zcube is hit blow everything up
 				BroadcastMessage ("destruct");
+				BroadcastMessage ("playDestroy");
 			}
 			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
 			//children[childno].gameObject.GetComponent<NCube>().destruct();

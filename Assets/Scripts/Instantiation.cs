@@ -25,16 +25,30 @@ public class Instantiation : MonoBehaviour {
 				playing = true;
 			}
 		}
+		Destroy (GameObject.Find("Arrow Scale Parent"));
 		
 	}
 	public IEnumerator generate(){
 		float h=12.0f;
 		speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed;
 		GameObject.Find ("Back").GetComponent<SoundHandler> ().PlaySong ();
+		Batch ();
+		int p = Random.Range(0,9);
+		int q = 0;
+		Vector3 pos;
+		for (int i = 0; i < 7; i++) {
+			if (i % 2 == 0)
+				q = p % 10;
+			else
+				q = (Mathf.Abs ((p % 10) - 9));
+			pos = checkPos (q, i);
+			pos.y = 24 + i * 11;
+			Instantiate (blocks [i], pos, Quaternion.identity);
+			p++;
+		}
+		yield return new WaitForSeconds ((h / speed)+9.7f);
 		while (!gameOver) {
 			Batch ();
-			int p = Random.Range(0,9);
-			int q = 0;
 			for (int j = 0; j < 1; j++) {
 				for (int i = 0; i < 7; i++) {
 					if (i % 2 == 0)
@@ -142,7 +156,4 @@ public class Instantiation : MonoBehaviour {
 		return piece;
 
 	}
-	//public void ChangeSpeed(float change){
-	//	speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed+change;
-	//}
 }

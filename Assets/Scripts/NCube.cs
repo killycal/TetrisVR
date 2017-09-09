@@ -16,8 +16,11 @@ public class NCube : MonoBehaviour {
 	}
 	public void destruct()
 	{
-		GameObject.Find ("Back").GetComponent<SoundHandler> ().PlayDest();
 		anim.SetBool ("Hit", true);
+	}
+	public void playDestroy()
+	{
+		GameObject.Find ("Back").GetComponent<SoundHandler> ().PlayDest();
 	}
 	private void delete()
 	{

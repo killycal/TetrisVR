@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: fc43a13f7763038449b8831fb9e877b5
+timeCreated: 1503123263
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Digital Computer
+  fontNames:
+  - Digital Computer
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: c5eb12311c3fe66408eca19c7c0745c8, type: 3}
+  - {fileID: 12800000, guid: 5f9d940393d1b1641b08d6f1c2dad3b2, type: 3}
+  - {fileID: 12800000, guid: 482940fa098545d44a7eb972cea3e19f, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

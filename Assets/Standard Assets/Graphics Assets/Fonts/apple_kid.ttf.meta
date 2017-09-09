@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 5d668f51db71ba941a6002e53e22c08b
+timeCreated: 1503165206
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Apple Kid
+  fontNames:
+  - Apple Kid
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

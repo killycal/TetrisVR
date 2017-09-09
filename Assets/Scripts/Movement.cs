@@ -37,7 +37,7 @@ public class Movement : MonoBehaviour {
 			float fracJourney = distCovered / journeyLength;
 			this.transform.position=Vector3.Lerp(pos,end,fracJourney);	
 		}
-		if (Time.time - startTime > 70 / speed) {
+		if (Time.time - startTime > 90 / speed) {
 			DestroyObject (this.gameObject);
 		}
 		if (Time.time - endTime > .05f&&hit==true) {
@@ -51,7 +51,6 @@ public class Movement : MonoBehaviour {
 			Destroy (this.gameObject);
 			GameObject.Find ("Horizontal").GetComponent<Lines> ().destruction = 0;
 		} else if (other.gameObject.CompareTag("Text")) {
-			print ("text");
 			Destroy (other.gameObject.GetComponent<Collider>());
 			other.gameObject.GetComponent<GoCubes> ().destruct ();
 		}
