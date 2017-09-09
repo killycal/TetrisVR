@@ -21,6 +21,7 @@ public class Instantiation : MonoBehaviour {
 	{
 		if (playing == false) {
 			if (gameOver == false) {
+				Destroy(GameObject.Find("Longbow"));
 				StartIt ();
 				playing = true;
 			}
@@ -42,7 +43,7 @@ public class Instantiation : MonoBehaviour {
 			else
 				q = (Mathf.Abs ((p % 10) - 9));
 			pos = checkPos (q, i);
-			pos.y = 24 + i * 11;
+			pos.y = 26 + i * 11;
 			Instantiate (blocks [i], pos, Quaternion.identity);
 			p++;
 		}

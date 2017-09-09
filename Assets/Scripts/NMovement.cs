@@ -37,10 +37,10 @@ public class NMovement : MonoBehaviour {
 		if (Time.time - startTime > 70 / speed) {
 			DestroyObject (this.gameObject);
 		}
-		if (Time.time - endTime > .05f&&hit==true) {
+		/*if (Time.time - endTime > .05f&&hit==true) {
 			Destroy (GameObject.Find("Arrow Scale Parent"));
 			hit = false;
-		}
+		}*/
 	}
 	void OnCollisionEnter(Collision other)
 	{
@@ -64,8 +64,9 @@ public class NMovement : MonoBehaviour {
 				BroadcastMessage ("destruct");
 				BroadcastMessage ("playDestroy");
 			}
+			else
+				children[childno].gameObject.GetComponent<NCube>().destruct();
 			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
-			//children[childno].gameObject.GetComponent<NCube>().destruct();
 			endTime = Time.time;
 			hit = true;
 		} else if (other.gameObject.name == "cube") {	//if Ncube hits cube

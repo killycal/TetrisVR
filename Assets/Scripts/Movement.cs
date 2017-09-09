@@ -40,10 +40,10 @@ public class Movement : MonoBehaviour {
 		if (Time.time - startTime > 90 / speed) {
 			DestroyObject (this.gameObject);
 		}
-		if (Time.time - endTime > .05f&&hit==true) {
+		/*if (Time.time - endTime > .05f&&hit==true) {
 			Destroy (GameObject.Find("Arrow Scale Parent"));
 			hit = false;
-		}
+		}*/
 	}
 	void OnCollisionEnter(Collision other)
 	{

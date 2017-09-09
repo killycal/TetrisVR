@@ -24,7 +24,7 @@ public class GoCubes : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.name == "Bow Arrow" || other.gameObject.name == "FireSource" || other.gameObject.name == "Arrowhead collider") {
-			GameObject.Find ("Top").GetComponent<Instantiation> ().gameOver = false;
+			GameObject.Find ("Controller").GetComponent<Instantiation> ().gameOver = false;
 			destruct();
 			Destroy (other.gameObject);
 		}

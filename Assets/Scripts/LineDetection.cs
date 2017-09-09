@@ -21,7 +21,7 @@ public class LineDetection : MonoBehaviour{
 		{
 			cubes.Add(other.gameObject);
 			if (this.gameObject.name == "Line23")
-				GameObject.Find("Top").GetComponent<Instantiation>().gameOver=true;
+				GameObject.Find("Controller").GetComponent<Instantiation>().gameOver=true;
 		}
 		if (cubes.Count > 9) {
 			for (int i = 0; i < cubes.Count; i++)

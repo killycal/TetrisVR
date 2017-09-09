@@ -18,22 +18,22 @@ public class Lines : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (totalDestroy==10&&flip==false) {
+		if (totalDestroy==5&&flip==false) {
 			speed += .5f;
 			flip = true;
 			level = 1;
 		}
-		else if (totalDestroy==20&&flip==true) {
+		else if (totalDestroy==10&&flip==true) {
 			speed += .5f;
 			flip = false;
 			level = 2;
 		}
-		else if (totalDestroy==30&&flip==false) {
+		else if (totalDestroy==15&&flip==false) {
 			speed += .5f;
 			flip = true;
 			level = 3;
 		}
-		else if (totalDestroy==40&&flip==false) {
+		else if (totalDestroy==20&&flip==false) {
 			speed += .5f;
 			flip = true;
 			level = 4;
