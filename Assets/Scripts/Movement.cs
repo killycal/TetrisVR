@@ -9,10 +9,8 @@ public class Movement : MonoBehaviour {
 	private Vector3 end;
 	private float speed = 2.0f;
 	private float startTime;
-	private float endTime;
 	private float journeyLength;
 	private bool move=true;
-	private bool hit=false;
 	private Component[] children;
 	private GameObject arrow;
 	public GameObject effect; 
@@ -40,10 +38,6 @@ public class Movement : MonoBehaviour {
 		if (Time.time - startTime > 90 / speed) {
 			DestroyObject (this.gameObject);
 		}
-		/*if (Time.time - endTime > .05f&&hit==true) {
-			Destroy (GameObject.Find("Arrow Scale Parent"));
-			hit = false;
-		}*/
 	}
 	void OnCollisionEnter(Collision other)
 	{
@@ -72,8 +66,6 @@ public class Movement : MonoBehaviour {
 			effect.GetComponent<ParticleSystem> ().startColor = color;
 			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
 			children[childno].gameObject.GetComponent<Cube>().destruct();
-			endTime = Time.time;
-			hit = true;
 		}
 	}
 	public bool getMove()

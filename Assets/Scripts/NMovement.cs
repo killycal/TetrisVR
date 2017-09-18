@@ -9,7 +9,6 @@ public class NMovement : MonoBehaviour {
 	private Vector3 end;
 	private float speed = 2.0f;
 	private float startTime;
-	private float endTime;
 	private float journeyLength;
 	private bool move=true;
 	private bool hit=false;
@@ -37,10 +36,6 @@ public class NMovement : MonoBehaviour {
 		if (Time.time - startTime > 70 / speed) {
 			DestroyObject (this.gameObject);
 		}
-		/*if (Time.time - endTime > .05f&&hit==true) {
-			Destroy (GameObject.Find("Arrow Scale Parent"));
-			hit = false;
-		}*/
 	}
 	void OnCollisionEnter(Collision other)
 	{
@@ -67,7 +62,6 @@ public class NMovement : MonoBehaviour {
 			else
 				children[childno].gameObject.GetComponent<NCube>().destruct();
 			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
-			endTime = Time.time;
 			hit = true;
 		} else if (other.gameObject.name == "cube") {	//if Ncube hits cube
 			Vector3 impact = other.transform.position;
@@ -92,7 +86,6 @@ public class NMovement : MonoBehaviour {
 				Instantiate (effect, children [z].gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
 			}
 			broken = true;
-			endTime = Time.time;
 			Destroy (other.gameObject);
 		}
 		else {		//if NCube hits floor
@@ -119,7 +112,6 @@ public class NMovement : MonoBehaviour {
 			}
 			broken = true;
 			children[childno].gameObject.GetComponent<NCube>().destruct();
-			endTime = Time.time;
 		}
 	}
 	public bool getMove()

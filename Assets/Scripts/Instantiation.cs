@@ -33,6 +33,9 @@ public class Instantiation : MonoBehaviour {
 		float h=12.0f;
 		speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed;
 		GameObject.Find ("Back").GetComponent<SoundHandler> ().PlaySong ();
+		GameObject[] cubes = GameObject.FindGameObjectsWithTag ("Cube");
+		for (int i=0; i< cubes.Length; i++)
+			Destroy (cubes[i]);
 		Batch ();
 		int p = Random.Range(0,9);
 		int q = 0;
@@ -71,6 +74,10 @@ public class Instantiation : MonoBehaviour {
 					break;
 			}
 		}
+		GameObject[] pieces=GameObject.FindGameObjectsWithTag ("Piece");
+		for (int i=0; i< cubes.Length; i++)
+			Destroy (pieces[i]);
+
 	}
 	private Vector3 checkPos(int q, int i)
 	{
