@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 public class Instantiation : MonoBehaviour {
-	public GameObject O,I,I2,J,J2,J3,J4,L,L2,L3,L4,Z,Z2,S,S2,T,T2,T3,T4;
+	public GameObject O,I,I2,J,J2,J3,J4,L,L2,L3,L4,Z,Z2,S,S2,T,T2,T3,T4,GO;
 	public List<GameObject> NegBlock= new List<GameObject>();
 	public Vector3[] position;
 	private Time time;
@@ -75,8 +75,9 @@ public class Instantiation : MonoBehaviour {
 			}
 		}
 		GameObject[] pieces=GameObject.FindGameObjectsWithTag ("Piece");
-		for (int i=0; i< cubes.Length; i++)
+		for (int i=0; i< pieces.Length; i++)
 			Destroy (pieces[i]);
+		Instantiate(GO, new Vector3(.5f, 12.8f, -1.2f), Quaternion.identity);
 
 	}
 	private Vector3 checkPos(int q, int i)
