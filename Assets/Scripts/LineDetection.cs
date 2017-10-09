@@ -20,8 +20,10 @@ public class LineDetection : MonoBehaviour{
 		if (!cubes.Contains(other.gameObject)&&other.gameObject.name=="cube") //Populate list of cubes in contact with line
 		{
 			cubes.Add(other.gameObject);
-			if (this.gameObject.name == "Line23")
-				GameObject.Find("Controller").GetComponent<Instantiation>().gameOver=true;
+			if (this.gameObject.name == "Line23") {
+				GameObject.Find ("Controller").GetComponent<Instantiation> ().gameOver = true;
+				Destroy (other.gameObject);
+			}
 		}
 		if (cubes.Count > 9) {
 			for (int i = 0; i < cubes.Count; i++)

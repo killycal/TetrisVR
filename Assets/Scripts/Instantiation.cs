@@ -30,7 +30,7 @@ public class Instantiation : MonoBehaviour {
 		
 	}
 	public IEnumerator generate(){
-		float h=12.0f;
+		float h=8.0f;
 		speed=GameObject.Find ("Horizontal").GetComponent<Lines> ().speed;
 		GameObject.Find ("Back").GetComponent<SoundHandler> ().PlaySong ();
 		GameObject[] cubes = GameObject.FindGameObjectsWithTag ("Cube");
@@ -46,11 +46,11 @@ public class Instantiation : MonoBehaviour {
 			else
 				q = (Mathf.Abs ((p % 10) - 9));
 			pos = checkPos (q, i);
-			pos.y = 26 + i * 11;
+			pos.y = 26 + i * 8;
 			Instantiate (blocks [i], pos, Quaternion.identity);
 			p++;
 		}
-		yield return new WaitForSeconds ((h / speed)+9.7f);
+		yield return new WaitForSeconds ((h / speed)+15f/speed);
 		while (!gameOver) {
 			Batch ();
 			for (int j = 0; j < 1; j++) {
@@ -78,6 +78,7 @@ public class Instantiation : MonoBehaviour {
 		for (int i=0; i< pieces.Length; i++)
 			Destroy (pieces[i]);
 		Instantiate(GO, new Vector3(.5f, 12.8f, -1.2f), Quaternion.identity);
+		playing = false;
 
 	}
 	private Vector3 checkPos(int q, int i)
@@ -105,9 +106,9 @@ public class Instantiation : MonoBehaviour {
 		blocks.Clear ();
 		List<int> IDs=new List<int>();
 		for (int i = 0; i < 7; i++) {
-			int rando=((int)(Random.Range (0, 7)));
+			int rando=((int)(Random.Range (0, 8)));
 			if (IDs.Contains(rando))
-				rando=((int)(Random.Range (0, 7)));
+				rando=((int)(Random.Range (0, 8)));
 			IDs.Add (rando);
 		}
 		for (int i = 0; i < 7; i++)
@@ -118,7 +119,7 @@ public class Instantiation : MonoBehaviour {
 		GameObject piece;
 		int rot = Random.Range (0, 3);
 		if (rand == 0) {
-			if (rot == 1 || rot==2)
+			if (rot == 1 || rot == 2)
 				piece = I;
 			else
 				piece = I2;
@@ -143,7 +144,7 @@ public class Instantiation : MonoBehaviour {
 		} else if (rand == 3)
 			piece = O;
 		else if (rand == 4) {
-			if (rot == 1 || rot==2)
+			if (rot == 1 || rot == 2)
 				piece = S;
 			else
 				piece = S2;
@@ -156,7 +157,10 @@ public class Instantiation : MonoBehaviour {
 				piece = T3;
 			else
 				piece = T4;
-		} else {
+		} else if (rand == 6) {
+			piece = NegBlock [Random.Range (0, NegBlock.Count)];
+		}
+		else {
 			if (rot == 1 || rot==2)
 				piece = Z;
 			else
