@@ -79,6 +79,7 @@ public class Instantiation : MonoBehaviour {
 			Destroy (pieces[i]);
 		Instantiate(GO, new Vector3(.5f, 12.8f, -1.2f), Quaternion.identity);
 		playing = false;
+		GameObject.Find ("Back").GetComponent<SoundHandler> ().Stop ();
 
 	}
 	private Vector3 checkPos(int q, int i)
@@ -98,7 +99,13 @@ public class Instantiation : MonoBehaviour {
 				return position [8];
 			else
 				return position [q];
-		} else
+		} else if (blocks [i] == NegBlock[0] ||blocks [i] == NegBlock[1] || blocks [i] == NegBlock[2] || blocks [i] == NegBlock[3] || blocks [i] == NegBlock[4]|| blocks [i] == NegBlock[5] || blocks [i] == NegBlock[6]) {
+			if (q > 7)
+				return position [7];
+			else
+				return position [q];
+		}
+		else
 			return position [q];
 	}
 	private void Batch()

@@ -20,4 +20,8 @@ public class SoundHandler : MonoBehaviour
 	{
 		GetComponent<AudioSource> ().PlayOneShot (song);
 	}
+	public void Stop()
+	{
+		GetComponent<AudioSource> ().Stop ();
+	}
 }
