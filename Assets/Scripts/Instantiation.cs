@@ -60,6 +60,7 @@ public class Instantiation : MonoBehaviour {
 					else 
 						q=(Mathf.Abs((p%10)-9));
 					Instantiate (blocks [i], checkPos(q,i), Quaternion.identity);
+					print (blocks [i].gameObject.name);
 					yield return new WaitForSeconds (h / speed);
 					p++;
 					if (gameOver)
@@ -94,17 +95,19 @@ public class Instantiation : MonoBehaviour {
 				return position [7];
 			else
 				return position [q];
-		} else if (blocks [i] != I) {
+		}
+		else if (blocks [i] == NegBlock[0] ||blocks [i] == NegBlock[1] || blocks [i] == NegBlock[2] || blocks [i] == NegBlock[3] || blocks [i] == NegBlock[4]|| blocks [i] == NegBlock[5]) {
+				if (q > 7)
+					return position [7];
+				else
+					return position [q];
+			}
+		else if (blocks [i] != I) {
 			if (q > 8)
 				return position [8];
 			else
 				return position [q];
-		} else if (blocks [i] == NegBlock[0] ||blocks [i] == NegBlock[1] || blocks [i] == NegBlock[2] || blocks [i] == NegBlock[3] || blocks [i] == NegBlock[4]|| blocks [i] == NegBlock[5] || blocks [i] == NegBlock[6]) {
-			if (q > 7)
-				return position [7];
-			else
-				return position [q];
-		}
+		} 
 		else
 			return position [q];
 	}
