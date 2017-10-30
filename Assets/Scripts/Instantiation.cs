@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 public class Instantiation : MonoBehaviour {
@@ -22,6 +23,8 @@ public class Instantiation : MonoBehaviour {
 		if (playing == false) {
 			if (gameOver == false) {
 				Destroy(GameObject.Find("Longbow"));
+				GameObject.Find ("Horizontal").GetComponent<Lines> ().points =0;
+				GameObject.Find ("Text").GetComponent<Text> ().text = GameObject.Find ("Horizontal").GetComponent<Lines> ().points.ToString();
 				StartIt ();
 				playing = true;
 			}

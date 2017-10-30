@@ -15,20 +15,33 @@ public class Cube : MonoBehaviour {
 	private Lines horizontal;
 	public List<float> ypos = new List<float>();
 	private Animator anim;
+	private bool shoots = false;
+	public GameObject projectile;
+	public bool inAir = false;
 
 	void Start () {
 		horizontal = GameObject.Find ("Horizontal").GetComponent<Lines> ();
 		initYPos ();
 		anim = this.gameObject.GetComponent<Animator> ();
+		if (Random.Range (0, 20) % 20 == 1)
+			shoots = true;
 	}
 
 	void FixedUpdate () {
 		if (!orphan) {
 			if (!this.gameObject.GetComponentInParent<Movement> ().getMove ()) {
 				Destroy (this.gameObject.GetComponent<Animator> ());
-				this.gameObject.transform.parent = GameObject.Find("Cubes").transform;
+				this.gameObject.transform.parent = GameObject.Find ("Cubes").transform;
 				orphan = true;
 				this.gameObject.name = "cube";
+				BroadcastMessage ("kys",null,SendMessageOptions.DontRequireReceiver);
+			} else if (shoots){
+				if (inAir == false) {
+					Vector3 thing = this.transform.position;
+					thing(
+					Instantiate (projectile, this.transform, false);
+					inAir = true;
+				}
 			}
 		}
 		else
@@ -54,7 +67,7 @@ public class Cube : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 		//print (other.gameObject.name);
-		if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider") {
+		if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider" && other.gameObject.name != "Missile(Clone)") {
 			string line = other.gameObject.name.Remove (0, 4);
 			lineno = int.Parse (line);
 			this.gameObject.transform.SetParent (GameObject.Find (other.gameObject.name + "x").GetComponent<Transform> ());
