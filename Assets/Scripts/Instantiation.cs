@@ -30,7 +30,6 @@ public class Instantiation : MonoBehaviour {
 			}
 		}
 		Destroy (GameObject.Find("Arrow Scale Parent"));
-		
 	}
 	public IEnumerator generate(){
 		float h=8.0f;
@@ -57,24 +56,27 @@ public class Instantiation : MonoBehaviour {
 		while (!gameOver) {
 			Batch ();
 			for (int j = 0; j < 1; j++) {
+				if (gameOver)
+					break;
 				for (int i = 0; i < 7; i++) {
+					if (gameOver)
+						break;
 					if (i % 2 == 0)
 						q = p % 10;
 					else 
 						q=(Mathf.Abs((p%10)-9));
+					
 					Instantiate (blocks [i], checkPos(q,i), Quaternion.identity);
-					yield return new WaitForSeconds (h / speed);
-					p++;
 					if (gameOver)
 						break;
-
+					yield return new WaitForSeconds (h / speed);
+					p++;
 				}
-
+				if (gameOver)
+					break;
 				Instantiate (NegBlock[Random.Range(0, NegBlock.Count)], position [Random.Range(0,8)], Quaternion.identity);
 				Instantiate (D, powerupPosition[j%2], Quaternion.identity);
 				yield return new WaitForSeconds (h / speed);
-				if (gameOver)
-					break;
 			}
 		}
 		GameObject[] pieces=GameObject.FindGameObjectsWithTag ("Piece");

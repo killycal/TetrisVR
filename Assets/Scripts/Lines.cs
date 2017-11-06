@@ -21,12 +21,20 @@ public class Lines : MonoBehaviour {
 	private float journeyLength;
 	private GameObject world;
 	private bool hit = false;
+	public string death="Line23";
+	private int deathno=23;
 	void Start(){
 		pos=this.transform.position;
 		world = GameObject.Find ("Scene");
 	}
 	// Update is called once per frame
 	void FixedUpdate () {
+		
+		if (hit == true) {
+			float distCovered = (Time.time - startTime) * spd;
+			float fracJourney = distCovered / journeyLength;
+			this.transform.position = Vector3.Lerp (pos, end, fracJourney);	
+		}
 		if (totalDestroy==5&&flip==false) {
 			speed += .5f;
 			flip = true;
@@ -47,16 +55,6 @@ public class Lines : MonoBehaviour {
 			flip = true;
 			level = 4;
 		}
-			
-
-		if (hit == true) {
-			float distCovered = (Time.time - startTime) * spd;
-			float fracJourney = distCovered / journeyLength;
-			print (end);
-			print (pos);
-			print (fracJourney);
-			this.transform.position = Vector3.Lerp (pos, end, fracJourney);	
-		}
 	}
 	public int getLineNo(string line){
 		int no;
@@ -68,10 +66,12 @@ public class Lines : MonoBehaviour {
 		BroadcastMessage ("adjustUp",SendMessageOptions.DontRequireReceiver);
 	}
 	public void Hit(){
-		hit = true;
-		pos=this.transform.position;
+		pos = this.transform.position;
 		end.Set (pos.x, pos.y + 1f, pos.z);
 		startTime = Time.time;
-		journeyLength = Vector3.Distance(pos, end);
+		journeyLength = Vector3.Distance (pos, end);
+		deathno--;
+		death = "Line" + deathno;
+		hit = true;
 	}
 }

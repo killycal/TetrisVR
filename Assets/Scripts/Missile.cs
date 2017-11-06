@@ -29,6 +29,8 @@ public class Missile : MonoBehaviour {
 		GetComponent<Rigidbody> ().AddForce ((head.transform.position - this.transform.position)* 30);
 		yield return new WaitForSeconds (.05f);
 		this.transform.parent = null;
+		yield return new WaitForSeconds (8);
+		kys ();
 	}
 	private void kys()
 	{
