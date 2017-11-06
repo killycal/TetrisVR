@@ -9,13 +9,17 @@ public class Missile : MonoBehaviour {
 	void Start () {
 		schedule=Fly ();
 		head = GameObject.Find ("HeadCollider");
-		print (head.name);
 		StartCoroutine (schedule);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+	}
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.name == "HeadCollider")
+			GameObject.Find ("Horizontal").GetComponent<Lines> ().Hit ();
+
 	}
 
 	public IEnumerator Fly()

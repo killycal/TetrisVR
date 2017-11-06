@@ -10,14 +10,23 @@ public class Lines : MonoBehaviour {
 	public int totalDestroy=0;
 	private bool flip=false;
 	public float speed=2.0f;
+	private float spd = 5.0f;
 	public int destruction=2;
 	public int points=0;
 	public int level=0;
-	void Start () {
+	public int headshots = 0;
+	private Vector3 pos;
+	private Vector3 end;
+	private float startTime;
+	private float journeyLength;
+	private GameObject world;
+	private bool hit = false;
+	void Start(){
+		pos=this.transform.position;
+		world = GameObject.Find ("Scene");
 	}
-	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (totalDestroy==5&&flip==false) {
 			speed += .5f;
 			flip = true;
@@ -38,11 +47,31 @@ public class Lines : MonoBehaviour {
 			flip = true;
 			level = 4;
 		}
+			
+
+		if (hit == true) {
+			float distCovered = (Time.time - startTime) * spd;
+			float fracJourney = distCovered / journeyLength;
+			print (end);
+			print (pos);
+			print (fracJourney);
+			this.transform.position = Vector3.Lerp (pos, end, fracJourney);	
+		}
 	}
 	public int getLineNo(string line){
 		int no;
 		line=line.Remove (0, 4);
 		no = int.Parse (line);
 		return no;
+	}
+	public void up(){
+		BroadcastMessage ("adjustUp",SendMessageOptions.DontRequireReceiver);
+	}
+	public void Hit(){
+		hit = true;
+		pos=this.transform.position;
+		end.Set (pos.x, pos.y + 1f, pos.z);
+		startTime = Time.time;
+		journeyLength = Vector3.Distance(pos, end);
 	}
 }

@@ -63,7 +63,6 @@ public class Instantiation : MonoBehaviour {
 					else 
 						q=(Mathf.Abs((p%10)-9));
 					Instantiate (blocks [i], checkPos(q,i), Quaternion.identity);
-					print (blocks [i].gameObject.name);
 					yield return new WaitForSeconds (h / speed);
 					p++;
 					if (gameOver)

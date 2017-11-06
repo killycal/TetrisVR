@@ -38,7 +38,6 @@ public class Cube : MonoBehaviour {
 			} else if (shoots){
 				if (inAir == false) {
 					Vector3 thing = this.transform.position;
-					thing(
 					Instantiate (projectile, this.transform, false);
 					inAir = true;
 				}
@@ -97,6 +96,13 @@ public class Cube : MonoBehaviour {
 		startTime = Time.time;
 		journeyLength = Vector3.Distance (pos, end);
 		print (count);
+	}
+	private void adjustUp()
+	{
+		pos = this.gameObject.transform.position;
+		end.Set (pos.x, ypos [lineno+1], pos.z);
+		startTime = Time.time;
+		journeyLength = Vector3.Distance (pos, end);
 	}
 	public void destruct()
 	{
