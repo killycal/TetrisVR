@@ -11,25 +11,23 @@ public class Missile : MonoBehaviour {
 		head = GameObject.Find ("HeadCollider");
 		StartCoroutine (schedule);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
-	void OnTriggerEnter(Collider other)
+	void OnCollisionEnter(Collision other)
 	{
-		if (other.gameObject.name == "HeadCollider")
+		if (other.gameObject.name == "HeadCollider") {
 			GameObject.Find ("Horizontal").GetComponent<Lines> ().Hit ();
-
+			this.gameObject.GetComponent<Rigidbody> ().useGravity = true;
+		}
 	}
-
 	public IEnumerator Fly()
 	{
 		yield return new WaitForSeconds (3);
 		this.transform.parent.GetComponent<Cube> ().inAir = false;
 		GetComponent<Rigidbody> ().AddForce ((head.transform.position - this.transform.position)* 30);
 		yield return new WaitForSeconds (.05f);
+		this.gameObject.GetComponent<BoxCollider> ().isTrigger = false;
+		yield return new WaitForSeconds (.05f);
 		this.transform.parent = null;
-		yield return new WaitForSeconds (8);
+		yield return new WaitForSeconds (15);
 		kys ();
 	}
 	private void kys()
