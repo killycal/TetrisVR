@@ -48,7 +48,7 @@ public class Movement : MonoBehaviour {
 			Destroy (other.gameObject.GetComponent<Collider>());
 			other.gameObject.GetComponent<GoCubes> ().destruct ();
 		}
-		else if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider" && other.gameObject.name != "Destruction Powerup(Clone)") {
+		else if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider" && other.gameObject.name != "Destruction Powerup(Clone)" && other.gameObject.name != "Laser") {
 			move = false;
 		} 
 		else {

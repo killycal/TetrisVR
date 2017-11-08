@@ -16,10 +16,9 @@ namespace Valve.VR.InteractionSystem
 	{
 		private Hand hand;
 		private Longbow bow;
-
 		private GameObject currentArrow;
 		public GameObject arrowPrefab;
-
+		public GameObject laserPrefab;
 		public Transform arrowNockTransform;
 
 		public float nockDistance = 0.1f;
@@ -83,6 +82,18 @@ namespace Valve.VR.InteractionSystem
 			return arrow;
 		}
 
+		//my stuff
+		private GameObject InstantiateLaser()
+		{
+			
+			GameObject laser = Instantiate( laserPrefab, arrowNockTransform.position, arrowNockTransform.rotation);
+			laser.name = "Laser";
+			laser.transform.parent = arrowNockTransform;//change to hand
+			//Util.ResetTransform( laser.transform );
+			laser.GetComponent<Rigidbody>().AddForce( currentArrow.transform.forward * 70f, ForceMode.VelocityChange );
+			//laser.GetComponent<Rigidbody>().AddTorque( currentArrow.transform.forward * 10 );
+			return laser;
+		}
 
 		//-------------------------------------------------
 		private void HandAttachedUpdate( Hand hand )
@@ -170,7 +181,7 @@ namespace Valve.VR.InteractionSystem
 				}
 
 				// If arrow is close enough to the nock position and we're pressing the trigger, and we're not nocked yet, Nock
-				if ( ( distanceToNockPosition < nockDistance ) && hand.controller.GetPress( SteamVR_Controller.ButtonMask.Trigger ) && !nocked )
+				if ( ( distanceToNockPosition < nockDistance ) && hand.controller.GetPress( SteamVR_Controller.ButtonMask.Grip ) && !nocked )
 				{
 					if ( currentArrow == null )
 					{
@@ -189,7 +200,7 @@ namespace Valve.VR.InteractionSystem
 
 
 			// If arrow is nocked, and we release the trigger
-			if ( nocked && ( !hand.controller.GetPress( SteamVR_Controller.ButtonMask.Trigger ) || hand.controller.GetPressUp( SteamVR_Controller.ButtonMask.Trigger ) ) )
+			if ( nocked && ( !hand.controller.GetPress( SteamVR_Controller.ButtonMask.Grip ) || hand.controller.GetPressUp( SteamVR_Controller.ButtonMask.Grip ) ) )
 			{
 				if ( bow.pulled ) // If bow is pulled back far enough, fire arrow, otherwise reset arrow in arrowhand
 				{
@@ -207,6 +218,10 @@ namespace Valve.VR.InteractionSystem
 				}
 
 				bow.StartRotationLerp(); // Arrow is releasing from the bow, tell the bow to lerp back to controller rotation
+			}
+
+			if (hand.controller.GetPressDown (SteamVR_Controller.ButtonMask.Trigger)) {
+				FireLaser ();
 			}
 		}
 
@@ -248,7 +263,15 @@ namespace Valve.VR.InteractionSystem
 			allowTeleport.teleportAllowed = true;
 		}
 
+		//my changes
+		private void FireLaser()
+		{
+			GameObject laser = InstantiateLaser();
 
+			StartCoroutine( LaserReleaseHaptics() );
+			laser.transform.parent = null;
+			allowTeleport.teleportAllowed = true;
+		}
 		//-------------------------------------------------
 		private void EnableArrowSpawn()
 		{
@@ -273,6 +296,21 @@ namespace Valve.VR.InteractionSystem
 			hand.otherHand.controller.TriggerHapticPulse( 300 );
 		}
 
+		private IEnumerator LaserReleaseHaptics()
+		{
+			yield return new WaitForSeconds( 0.05f );
+
+			hand.controller.TriggerHapticPulse( 1500 );
+			yield return new WaitForSeconds( 0.05f );
+
+			hand.controller.TriggerHapticPulse( 800 );
+			yield return new WaitForSeconds( 0.05f );
+
+			hand.controller.TriggerHapticPulse( 500 );
+			yield return new WaitForSeconds( 0.05f );
+
+			hand.controller.TriggerHapticPulse( 300 );
+		}
 
 		//-------------------------------------------------
 		private void OnHandFocusLost( Hand hand )
