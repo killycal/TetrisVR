@@ -60,8 +60,8 @@ public class Cube : MonoBehaviour {
 	{
 		if (other.gameObject.name == "cube" || other.gameObject.name == "Plane")
 			move = false;
-		else if (other.gameObject.name == "Laser")
-			destruct ();
+		//else if (other.gameObject.name == "Laser")
+		//	destruct ();
 		else if (other.gameObject.name == "Arrowhead collider" && orphan == false)
 			destruct();
 	}

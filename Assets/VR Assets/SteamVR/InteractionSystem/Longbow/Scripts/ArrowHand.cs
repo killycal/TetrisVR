@@ -88,9 +88,9 @@ namespace Valve.VR.InteractionSystem
 			
 			GameObject laser = Instantiate( laserPrefab, arrowNockTransform.position, arrowNockTransform.rotation);
 			laser.name = "Laser";
-			laser.transform.parent = arrowNockTransform;//change to hand
+			//laser.transform.parent = hand.transform;//change to hand
 			//Util.ResetTransform( laser.transform );
-			laser.GetComponent<Rigidbody>().AddForce( currentArrow.transform.forward * 70f, ForceMode.VelocityChange );
+			laser.GetComponent<Rigidbody>().AddForce( arrowNockTransform.forward * 70f, ForceMode.VelocityChange );
 			//laser.GetComponent<Rigidbody>().AddTorque( currentArrow.transform.forward * 10 );
 			return laser;
 		}

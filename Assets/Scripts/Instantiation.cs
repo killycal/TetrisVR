@@ -16,6 +16,7 @@ public class Instantiation : MonoBehaviour {
 	private bool playing=false;
 	void StartIt() {
 		schedule=generate ();
+		GameObject.Find ("Horizontal").GetComponent<Lines> ().ResetWorld ();
 		StartCoroutine (schedule);
 	}
 	void Update()

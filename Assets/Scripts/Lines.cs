@@ -66,6 +66,7 @@ public class Lines : MonoBehaviour {
 		BroadcastMessage ("adjustUp",SendMessageOptions.DontRequireReceiver);
 	}
 	public void Hit(){
+		headshots++;
 		pos = this.transform.position;
 		end.Set (pos.x, pos.y + 1f, pos.z);
 		startTime = Time.time;
@@ -73,5 +74,9 @@ public class Lines : MonoBehaviour {
 		deathno--;
 		death = "Line" + deathno;
 		hit = true;
+	}
+	public void ResetWorld(){
+		end.Set (pos.x, pos.y - 1f*headshots, pos.z);
+		headshots = 0;
 	}
 }
