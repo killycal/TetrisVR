@@ -23,9 +23,11 @@ public class Lines : MonoBehaviour {
 	private bool hit = false;
 	public string death="Line23";
 	private int deathno=23;
+	private float ystart;
 	void Start(){
 		pos=this.transform.position;
 		world = GameObject.Find ("Scene");
+		ystart = pos.y;
 	}
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -76,7 +78,11 @@ public class Lines : MonoBehaviour {
 		hit = true;
 	}
 	public void ResetWorld(){
-		end.Set (pos.x, pos.y - 1f*headshots, pos.z);
+		end.Set (pos.x, ystart, pos.z);
 		headshots = 0;
+		startTime = Time.time;
+		journeyLength = Vector3.Distance (pos, end);
+		death = "Line23";
+		deathno = 23;
 	}
 }
