@@ -35,7 +35,7 @@ public class Movement : MonoBehaviour {
 			float fracJourney = distCovered / journeyLength;
 			this.transform.position=Vector3.Lerp(pos,end,fracJourney);	
 		}
-		if (Time.time - startTime > 90 / speed) {
+		if (Time.time - startTime > 80 / speed) {
 			DestroyObject (this.gameObject);
 		}
 	}
@@ -67,6 +67,18 @@ public class Movement : MonoBehaviour {
 			Instantiate (effect, children [childno].gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
 			children[childno].gameObject.GetComponent<Cube>().destruct();
 		}
+	}
+	public void adjust(string name)
+	{
+		float xpos;
+		float.TryParse (name.Remove (1),out xpos);
+		pos=this.transform.position;
+		pos.x = xpos-1f;
+		print (xpos);
+		end = pos;
+		end.Set (pos.x, -10f, pos.z);
+		startTime = Time.time;
+		journeyLength = Vector3.Distance(pos, end);
 	}
 	public bool getMove()
 	{

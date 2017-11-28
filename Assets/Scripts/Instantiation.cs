@@ -14,9 +14,12 @@ public class Instantiation : MonoBehaviour {
 	public Vector3[] powerupPosition;
 	public GameObject D;
 	private bool playing=false;
+	public int count;
+	private GameObject block;
 	void StartIt() {
 		schedule=generate ();
 		GameObject.Find ("Horizontal").GetComponent<Lines> ().ResetWorld ();
+		count = 0;
 		StartCoroutine (schedule);
 	}
 	void Update()
@@ -50,7 +53,9 @@ public class Instantiation : MonoBehaviour {
 				q = (Mathf.Abs ((p % 10) - 9));
 			pos = checkPos (q, i);
 			pos.y = 26 + i * 8;
-			Instantiate (blocks [i], pos, Quaternion.identity);
+			block=Instantiate (blocks [i], pos, Quaternion.identity);
+			block.name = count.ToString();
+			count++;
 			p++;
 		}
 		yield return new WaitForSeconds ((h / speed)+15f/speed);
@@ -67,9 +72,11 @@ public class Instantiation : MonoBehaviour {
 					else 
 						q=(Mathf.Abs((p%10)-9));
 					
-					Instantiate (blocks [i], checkPos(q,i), Quaternion.identity);
+					block=Instantiate (blocks [i], checkPos(q,i), Quaternion.identity);
+					block.name = count.ToString();
 					if (gameOver)
 						break;
+					count++;
 					yield return new WaitForSeconds (h / speed);
 					p++;
 				}
@@ -174,14 +181,17 @@ public class Instantiation : MonoBehaviour {
 				piece = T4;
 		} else if (rand == 6) {
 			piece = NegBlock [Random.Range (0, NegBlock.Count)];
-		}
-		else {
-			if (rot == 1 || rot==2)
+		} else {
+			if (rot == 1 || rot == 2)
 				piece = Z;
 			else
 				piece = Z2;
 		}
 		return piece;
-
+	}
+  
+	public int getCount()
+	{
+		return count;
 	}
 }

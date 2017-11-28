@@ -88,6 +88,10 @@ public class NMovement : MonoBehaviour {
 			broken = true;
 			Destroy (other.gameObject);
 		}
+		else if (other.gameObject.CompareTag("Text")) {
+			Destroy (other.gameObject.GetComponent<Collider>());
+			other.gameObject.GetComponent<GoCubes> ().destruct ();
+		}
 		else {		//if NCube hits floor
 			Vector3 impact = other.transform.position;
 			children=this.gameObject.GetComponentsInChildren<Component>();
@@ -117,5 +121,17 @@ public class NMovement : MonoBehaviour {
 	public bool getMove()
 	{
 		return move;
+	}
+	public void adjust(string name)
+	{
+		float xpos;
+		float.TryParse (name.Remove (1),out xpos);
+		pos=this.transform.position;
+		pos.x = xpos-1f;
+		print (xpos);
+		end = pos;
+		end.Set (pos.x, -10f, pos.z);
+		startTime = Time.time;
+		journeyLength = Vector3.Distance(pos, end);
 	}
 }
