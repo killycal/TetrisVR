@@ -8,7 +8,7 @@ public class Laser : MonoBehaviour {
 	void Start () {
 		schedule=fly ();
 		StartCoroutine (schedule);
-
+		GameObject.Find ("Back").GetComponent<SoundHandler> ().PlayLaser();
 	}
 	
 	private IEnumerator fly()

@@ -23,7 +23,15 @@ public class GoCubes : MonoBehaviour {
 	}
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.name == "Bow Arrow" || other.gameObject.name == "FireSource" || other.gameObject.name == "Arrowhead collider") {
+		if (other.gameObject.name == "Bow Arrow" || other.gameObject.name == "FireSource" || other.gameObject.name == "Arrowhead collider"|| other.gameObject.name == "Laser") {
+			GameObject.Find ("Controller").GetComponent<Instantiation> ().gameOver = false;
+			destruct();
+			Destroy (other.gameObject);
+		}
+	}
+	void OnCollisionEnter(Collision other)
+	{
+		if (other.gameObject.name == "Bow Arrow" || other.gameObject.name == "FireSource" || other.gameObject.name == "Arrowhead collider"|| other.gameObject.name == "Laser") {
 			GameObject.Find ("Controller").GetComponent<Instantiation> ().gameOver = false;
 			destruct();
 			Destroy (other.gameObject);

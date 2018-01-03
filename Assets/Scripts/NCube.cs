@@ -26,4 +26,9 @@ public class NCube : MonoBehaviour {
 	{
 		Destroy (this.gameObject);
 	}
+	void OnCollisionEnter(Collision other)
+	{
+		if (other.gameObject.name == "Plane")
+			destruct ();
+	}
 }

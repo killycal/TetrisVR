@@ -5,6 +5,7 @@ using UnityEngine;
 public class Missile : MonoBehaviour {
 	private IEnumerator schedule;
 	private GameObject head;
+	public float delay;
 	// Use this for initialization
 	void Start () {
 		schedule=Fly ();
@@ -20,7 +21,8 @@ public class Missile : MonoBehaviour {
 	}
 	public IEnumerator Fly()
 	{
-		yield return new WaitForSeconds (3);
+		this.gameObject.name = "Missile";
+		yield return new WaitForSeconds (7f);
 		this.transform.parent.GetComponent<Cube> ().inAir = false;
 		GetComponent<Rigidbody> ().AddForce ((head.transform.position - this.transform.position)* 30);
 		yield return new WaitForSeconds (.05f);

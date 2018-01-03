@@ -41,14 +41,14 @@ public class Movement : MonoBehaviour {
 	}
 	void OnCollisionEnter(Collision other)
 	{
-		if ((this.gameObject.name == "Destruction Powerup(Clone)") && (other.gameObject.name == "Bow Arrow" || other.gameObject.name == "FireSource" || other.gameObject.name == "Arrowhead collider")) {
+		if ((this.gameObject.name == "Destruction Powerup(Clone)") && (other.gameObject.name == "Bow Arrow" || other.gameObject.name == "FireSource" || other.gameObject.name == "Arrowhead collider")||other.gameObject.name == "Destruction Powerup(Clone)") {
 			Destroy (this.gameObject);
 			GameObject.Find ("Horizontal").GetComponent<Lines> ().destruction = 0;
 		} else if (other.gameObject.CompareTag("Text")) {
 			Destroy (other.gameObject.GetComponent<Collider>());
 			other.gameObject.GetComponent<GoCubes> ().destruct ();
 		}
-		else if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider" && other.gameObject.name != "Destruction Powerup(Clone)" && other.gameObject.name != "Laser") {
+		else if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider" && other.gameObject.name != "Destruction Powerup(Clone)" && other.gameObject.name != "Laser"&& other.gameObject.name != "Missile") {
 			move = false;
 		} 
 		else {
@@ -74,7 +74,6 @@ public class Movement : MonoBehaviour {
 		float.TryParse (name.Remove (1),out xpos);
 		pos=this.transform.position;
 		pos.x = xpos-1f;
-		print (xpos);
 		end = pos;
 		end.Set (pos.x, -10f, pos.z);
 		startTime = Time.time;

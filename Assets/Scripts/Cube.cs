@@ -23,7 +23,7 @@ public class Cube : MonoBehaviour {
 		horizontal = GameObject.Find ("Horizontal").GetComponent<Lines> ();
 		initYPos ();
 		anim = this.gameObject.GetComponent<Animator> ();
-		if (Random.Range (0, 20) % 20 == 1)
+		if (Random.Range (0, 40) % 25 == 1)
 			shoots = true;
 	}
 
@@ -68,7 +68,7 @@ public class Cube : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 		//print (other.gameObject.name);
-		if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider" && other.gameObject.name != "Missile(Clone)") {
+		if (other.gameObject.name != "Bow Arrow" && other.gameObject.name != "FireSource" && other.gameObject.name != "Arrowhead collider" && other.gameObject.name != "Missile") {
 			string line = other.gameObject.name.Remove (0, 4);
 			lineno = int.Parse (line);
 			this.gameObject.transform.SetParent (GameObject.Find (other.gameObject.name + "x").GetComponent<Transform> ());

@@ -9,7 +9,7 @@ public class Instantiation : MonoBehaviour {
 	private Time time;
 	private IEnumerator schedule;
 	private float speed=2.0f;
-	public bool gameOver=false;
+	public bool gameOver;
 	public List<GameObject> blocks = new List<GameObject>();
 	public Vector3[] powerupPosition;
 	public GameObject D;
@@ -88,6 +88,9 @@ public class Instantiation : MonoBehaviour {
 			}
 		}
 		GameObject[] pieces=GameObject.FindGameObjectsWithTag ("Piece");
+		for (int i=0; i< pieces.Length; i++)
+			Destroy (pieces[i]);
+		pieces=GameObject.FindGameObjectsWithTag ("ZPiece");
 		for (int i=0; i< pieces.Length; i++)
 			Destroy (pieces[i]);
 		Instantiate(GO, new Vector3(.5f, 12.8f, -1.2f), Quaternion.identity);

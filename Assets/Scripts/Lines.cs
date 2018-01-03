@@ -35,7 +35,7 @@ public class Lines : MonoBehaviour {
 		if (hit == true) {
 			float distCovered = (Time.time - startTime) * spd;
 			float fracJourney = distCovered / journeyLength;
-			this.transform.position = Vector3.Lerp (pos, end, fracJourney);	
+			world.transform.position = Vector3.Lerp (pos, end, fracJourney);	
 		}
 		if (totalDestroy==5&&flip==false) {
 			speed += .5f;
@@ -69,8 +69,8 @@ public class Lines : MonoBehaviour {
 	}
 	public void Hit(){
 		headshots++;
-		pos = this.transform.position;
-		end.Set (pos.x, pos.y + 1f, pos.z);
+		pos = world.transform.position;
+		end.Set (pos.x, pos.y + -1f, pos.z);
 		startTime = Time.time;
 		journeyLength = Vector3.Distance (pos, end);
 		deathno--;
@@ -78,7 +78,8 @@ public class Lines : MonoBehaviour {
 		hit = true;
 	}
 	public void ResetWorld(){
-		end.Set (pos.x, ystart, pos.z);
+		pos = world.transform.position;
+		end.Set (pos.x, pos.y+(float)headshots, pos.z);
 		headshots = 0;
 		startTime = Time.time;
 		journeyLength = Vector3.Distance (pos, end);

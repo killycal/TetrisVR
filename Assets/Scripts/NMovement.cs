@@ -39,7 +39,7 @@ public class NMovement : MonoBehaviour {
 	}
 	void OnCollisionEnter(Collision other)
 	{
-		 if (other.gameObject.name == "Bow Arrow" || other.gameObject.name == "FireSource" || other.gameObject.name == "Arrowhead collider") {
+		if (other.gameObject.name == "Bow Arrow" || other.gameObject.name == "FireSource" || other.gameObject.name == "Arrowhead collider"|| other.gameObject.name == "Laser") {
 			
 			Vector3 impact = other.transform.position;
 			children=this.gameObject.GetComponentsInChildren<Component>();
