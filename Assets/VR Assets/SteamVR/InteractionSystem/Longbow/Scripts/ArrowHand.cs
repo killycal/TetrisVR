@@ -19,7 +19,9 @@ namespace Valve.VR.InteractionSystem
 		private GameObject currentArrow;
 		public GameObject arrowPrefab;
 		public GameObject laserPrefab;
+		public GameObject gunPrefab;
 		public Transform arrowNockTransform;
+		private GameObject gun;
 
 		public float nockDistance = 0.1f;
 		public float lerpCompleteDistance = 0.08f;
@@ -48,6 +50,8 @@ namespace Valve.VR.InteractionSystem
 			allowTeleport.overrideHoverLock = false;
 
 			arrowList = new List<GameObject>();
+			gun = Instantiate (gunPrefab, arrowNockTransform);
+			gun.transform.rotation = Quaternion.Euler (0, 90, 40);
 		}
 
 
@@ -85,14 +89,17 @@ namespace Valve.VR.InteractionSystem
 		//my stuff
 		private GameObject InstantiateLaser()
 		{
-			
-			GameObject laser = Instantiate( laserPrefab, arrowNockTransform.position, arrowNockTransform.rotation);
-			laser.name = "Laser";
+			//laserTransform = arrowNockTransform;
+			//laserTransform.parent = arrowNockTransform;
+			Vector3 laserPos = new Vector3(arrowNockTransform.position.x, arrowNockTransform.position.y, arrowNockTransform.position.z);
+			Quaternion laserRot = Quaternion.Euler (arrowNockTransform.rotation.x, arrowNockTransform.rotation.y, arrowNockTransform.rotation.z);
+			GameObject lazer = Instantiate( laserPrefab, laserPos, laserRot);
+			lazer.name = "Laser";
 			//laser.transform.parent = hand.transform;//change to hand
 			//Util.ResetTransform( laser.transform );
-			laser.GetComponent<Rigidbody>().AddForce( arrowNockTransform.forward * 70f, ForceMode.VelocityChange );
+			lazer.GetComponent<Rigidbody>().AddForce( arrowNockTransform.forward * 10f, ForceMode.VelocityChange );
 			//laser.GetComponent<Rigidbody>().AddTorque( currentArrow.transform.forward * 10 );
-			return laser;
+			return lazer;
 		}
 
 		//-------------------------------------------------
@@ -119,6 +126,24 @@ namespace Valve.VR.InteractionSystem
 			// If there's an arrow spawned in the hand and it's not nocked yet
 			if ( !nocked )
 			{
+				// If grip is not being held down, swap arrow for gun
+				if (!hand.controller.GetPress (SteamVR_Controller.ButtonMask.Grip)) {
+					if (GameObject.Find ("arrow_prop")) {
+						GameObject.Find ("arrow_prop").GetComponent<Renderer> ().enabled = false;
+						GameObject.Find ("arrow_tip").GetComponent<Renderer> ().enabled = false;
+						GameObject.Find ("Hull").GetComponent<Renderer> ().enabled = true;
+						GameObject.Find ("Munition").GetComponent<Renderer> ().enabled = true;
+						GameObject.Find ("Trigger").GetComponent<Renderer> ().enabled = true;
+					}
+				} else {
+					if (GameObject.Find ("arrow_prop")) {
+						GameObject.Find ("arrow_prop").GetComponent<Renderer> ().enabled = true;
+						GameObject.Find ("arrow_tip").GetComponent<Renderer> ().enabled = true;
+						GameObject.Find ("Hull").GetComponent<Renderer> ().enabled = false;
+						GameObject.Find ("Munition").GetComponent<Renderer> ().enabled = false;
+						GameObject.Find ("Trigger").GetComponent<Renderer> ().enabled = false;
+					}
+				}
 				// If we're close enough to nock position that we want to start arrow rotation lerp, do so
 				if ( distanceToNockPosition < rotationLerpThreshold )
 				{
@@ -220,9 +245,8 @@ namespace Valve.VR.InteractionSystem
 				bow.StartRotationLerp(); // Arrow is releasing from the bow, tell the bow to lerp back to controller rotation
 			}
 
-			if (hand.controller.GetPressDown (SteamVR_Controller.ButtonMask.Trigger)) {
+				if (hand.controller.GetPressDown (SteamVR_Controller.ButtonMask.Trigger)&&!hand.controller.GetPress( SteamVR_Controller.ButtonMask.Grip))
 				FireLaser ();
-			}
 		}
 
 
