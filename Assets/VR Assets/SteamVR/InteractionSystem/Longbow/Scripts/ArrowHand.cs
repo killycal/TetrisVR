@@ -54,8 +54,7 @@ namespace Valve.VR.InteractionSystem
 
 			arrowList = new List<GameObject>();
 			gun = Instantiate (gunPrefab, gunTransform);
-			shield = Instantiate (shieldPrefab, gunTransform);
-			shield.gameObject.name = "Shield";
+
 		}
 
 
@@ -274,6 +273,8 @@ namespace Valve.VR.InteractionSystem
 
 			arrow.arrowHeadRB.AddForce( currentArrow.transform.forward * bow.GetArrowVelocity(), ForceMode.VelocityChange );
 			arrow.arrowHeadRB.AddTorque( currentArrow.transform.forward * 10 );
+			GameObject.Find ("arrow_prop").GetComponent<Renderer> ().enabled = false;
+			GameObject.Find ("arrow_tip").GetComponent<Renderer> ().enabled = false;
 
 			nocked = false;
 
@@ -374,6 +375,8 @@ namespace Valve.VR.InteractionSystem
 		private void FindBow()
 		{
 			bow = hand.otherHand.GetComponentInChildren<Longbow>();
+			shield = Instantiate (shieldPrefab, bow.transform);
+			shield.gameObject.name = "Shield";
 		}
 	}
 }

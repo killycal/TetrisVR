@@ -22,7 +22,7 @@ public class Missile : MonoBehaviour {
 	public IEnumerator Fly()
 	{
 		this.gameObject.name = "Missile";
-		yield return new WaitForSeconds (7f);
+		yield return new WaitForSeconds (10f);
 		this.transform.parent.GetComponent<Cube> ().inAir = false;
 		GetComponent<Rigidbody> ().AddForce ((head.transform.position - this.transform.position)* 30);
 		yield return new WaitForSeconds (.05f);

@@ -11,8 +11,10 @@ public class DCube : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.name == "Laser"&&GameObject.Find("Horizontal").GetComponent<Instantiation>().gameOver==false) {
+		print (other.gameObject.name);
+		if (other.gameObject.name == "Laser"&&GameObject.Find("Controller").GetComponent<Instantiation>().gameOver==false) {
 			int stuff = GameObject.Find ("Controller").GetComponent<Instantiation> ().count-4;
+
 			if (GameObject.Find(stuff.ToString ()).tag=="Piece")
 				GameObject.Find (stuff.ToString ()).GetComponent<Movement> ().adjust (this.gameObject.name);
 			else 
