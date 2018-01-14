@@ -133,7 +133,7 @@ namespace Valve.VR.InteractionSystem
 						GameObject.Find ("Trigger").GetComponent<Renderer> ().enabled = false;
 					}
 				}
-				if (hand.otherHand.controller.GetPress (SteamVR_Controller.ButtonMask.Trigger))
+				if (hand.otherHand.controller.GetPress (SteamVR_Controller.ButtonMask.Grip))
 					{
 					shield.GetComponent<Renderer> ().enabled = true;
 					shield.GetComponent<Collider> ().enabled = true;
