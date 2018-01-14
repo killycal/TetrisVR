@@ -20,8 +20,11 @@ namespace Valve.VR.InteractionSystem
 		public GameObject arrowPrefab;
 		public GameObject laserPrefab;
 		public GameObject gunPrefab;
+		public GameObject shieldPrefab;
 		public Transform arrowNockTransform;
+		public Transform gunTransform;
 		private GameObject gun;
+		private GameObject shield;
 
 		public float nockDistance = 0.1f;
 		public float lerpCompleteDistance = 0.08f;
@@ -50,8 +53,9 @@ namespace Valve.VR.InteractionSystem
 			allowTeleport.overrideHoverLock = false;
 
 			arrowList = new List<GameObject>();
-			gun = Instantiate (gunPrefab, arrowNockTransform);
-			gun.transform.rotation = Quaternion.Euler (0, 90, 40);
+			gun = Instantiate (gunPrefab, gunTransform);
+			shield = Instantiate (shieldPrefab, gunTransform);
+			shield.gameObject.name = "Shield";
 		}
 
 
@@ -86,21 +90,7 @@ namespace Valve.VR.InteractionSystem
 			return arrow;
 		}
 
-		//my stuff
-		private GameObject InstantiateLaser()
-		{
-			//laserTransform = arrowNockTransform;
-			//laserTransform.parent = arrowNockTransform;
-			Vector3 laserPos = new Vector3(arrowNockTransform.position.x, arrowNockTransform.position.y, arrowNockTransform.position.z);
-			Quaternion laserRot = Quaternion.Euler (arrowNockTransform.rotation.x, arrowNockTransform.rotation.y, arrowNockTransform.rotation.z);
-			GameObject lazer = Instantiate( laserPrefab, laserPos, laserRot);
-			lazer.name = "Laser";
-			//laser.transform.parent = hand.transform;//change to hand
-			//Util.ResetTransform( laser.transform );
-			lazer.GetComponent<Rigidbody>().AddForce( arrowNockTransform.forward * 10f, ForceMode.VelocityChange );
-			//laser.GetComponent<Rigidbody>().AddTorque( currentArrow.transform.forward * 10 );
-			return lazer;
-		}
+
 
 		//-------------------------------------------------
 		private void HandAttachedUpdate( Hand hand )
@@ -144,6 +134,17 @@ namespace Valve.VR.InteractionSystem
 						GameObject.Find ("Trigger").GetComponent<Renderer> ().enabled = false;
 					}
 				}
+				if (hand.otherHand.controller.GetPress (SteamVR_Controller.ButtonMask.Trigger))
+					{
+					shield.GetComponent<Renderer> ().enabled = true;
+					shield.GetComponent<Collider> ().enabled = true;
+					}
+				else
+				{
+					shield.GetComponent<Renderer> ().enabled = false;
+					shield.GetComponent<Collider> ().enabled = false;
+				}
+
 				// If we're close enough to nock position that we want to start arrow rotation lerp, do so
 				if ( distanceToNockPosition < rotationLerpThreshold )
 				{
@@ -291,10 +292,29 @@ namespace Valve.VR.InteractionSystem
 		private void FireLaser()
 		{
 			GameObject laser = InstantiateLaser();
-
-			StartCoroutine( LaserReleaseHaptics() );
 			laser.transform.parent = null;
+			//laser.transform.rotation = Quaternion.Euler (laser.transform.rotation.x, laser.transform.rotation.y-90, laser.transform.rotation.z);
+			laser.GetComponent<Rigidbody>().AddForce( laser.transform.forward * 60f, ForceMode.VelocityChange );
+			StartCoroutine( LaserReleaseHaptics() );
+
 			allowTeleport.teleportAllowed = true;
+		}
+		//my stuff
+		private GameObject InstantiateLaser()
+		{
+			//laserTransform = arrowNockTransform;
+			//laserTransform.parent = arrowNockTransform;
+			//Vector3 laserPos = gunTransform.position;
+			Quaternion laserRot = gunTransform.rotation;
+
+			GameObject lazer = Instantiate( laserPrefab, gunTransform.position, gunTransform.rotation);
+			//lazer.transform.localRotation = Quaternion.Euler (gunTransform.rotation.x, gunTransform.rotation.y-90, gunTransform.rotation.z);
+			print (lazer.gameObject.transform.position.x + " " +lazer.gameObject.transform.position.y+" "+lazer.gameObject.transform.position.z);
+			lazer.name = "Laser";
+			//laser.transform.parent = hand.transform;//change to hand
+			//Util.ResetTransform( laser.transform );
+			//laser.GetComponent<Rigidbody>().AddTorque( currentArrow.transform.forward * 10 );
+			return lazer;
 		}
 		//-------------------------------------------------
 		private void EnableArrowSpawn()
