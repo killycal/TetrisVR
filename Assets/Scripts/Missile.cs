@@ -22,10 +22,10 @@ public class Missile : MonoBehaviour {
 	public IEnumerator Fly()
 	{
 		this.gameObject.name = "Missile";
-		yield return new WaitForSeconds (10f);
+		yield return new WaitForSeconds (Random.Range(-4f,4f)+delay);
 		this.transform.parent.GetComponent<Cube> ().inAir = false;
 		GetComponent<Rigidbody> ().AddForce ((head.transform.position - this.transform.position)* 30);
-		yield return new WaitForSeconds (.05f);
+		yield return new WaitForSeconds (.1f);
 		this.gameObject.GetComponent<BoxCollider> ().isTrigger = false;
 		yield return new WaitForSeconds (.05f);
 		this.transform.parent = null;

@@ -137,11 +137,13 @@ namespace Valve.VR.InteractionSystem
 					{
 					shield.GetComponent<Renderer> ().enabled = true;
 					shield.GetComponent<Collider> ().enabled = true;
+					shield.GetComponent<Light> ().enabled = true;
 					}
 				else
 				{
 					shield.GetComponent<Renderer> ().enabled = false;
 					shield.GetComponent<Collider> ().enabled = false;
+					shield.GetComponent<Light> ().enabled = false;
 				}
 
 				// If we're close enough to nock position that we want to start arrow rotation lerp, do so
