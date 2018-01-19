@@ -307,12 +307,18 @@ namespace Valve.VR.InteractionSystem
 		{
 			//laserTransform = arrowNockTransform;
 			//laserTransform.parent = arrowNockTransform;
-			//Vector3 laserPos = gunTransform.position;
-			Quaternion laserRot = gunTransform.rotation;
+//			Vector3 laserPos = gunTransform.position;  
+			//Vector3	laserRot = new Vector3(gunTransform.eulerAngles.x+45, gunTransform.eulerAngles.y, gunTransform.eulerAngles.z);
+//			Transform laserVect;
+//			laserVect.rotation.eulerAngles =new Vector3 (gunTransform.eulerAngles.x+45, gunTransform.eulerAngles.y, gunTransform.eulerAngles.z);
+//			laserVect.position = laserPos;
 
-			GameObject lazer = Instantiate( laserPrefab, gunTransform.position, gunTransform.rotation);
-			//lazer.transform.localRotation = Quaternion.Euler (gunTransform.rotation.x, gunTransform.rotation.y-90, gunTransform.rotation.z);
-			print (lazer.gameObject.transform.position.x + " " +lazer.gameObject.transform.position.y+" "+lazer.gameObject.transform.position.z);
+			GameObject lazer = Instantiate( laserPrefab, arrowNockTransform.position, arrowNockTransform.rotation);
+			lazer.transform.eulerAngles= new Vector3 (lazer.transform.eulerAngles.x+30, lazer.transform.eulerAngles.y, lazer.transform.eulerAngles.z);
+			//lazer.transform.localPosition = GameObject.Find ("Tip").gameObject.transform.position;
+			//lazer.transform.position = new Vector3 (lazer.transform.eulerAngles.x + .1f, lazer.transform.eulerAngles.y, lazer.transform.eulerAngles.z);
+			//lazer.transform.rotation = Quaternion.Euler (gunTransform.rotation.x, gunTransform.rotation.y, gunTransform.rotation.z);
+			//print (lazer.gameObject.transform.position.x + " " +lazer.gameObject.transform.position.y+" "+lazer.gameObject.transform.position.z);
 			lazer.name = "Laser";
 			//laser.transform.parent = hand.transform;//change to hand
 			//Util.ResetTransform( laser.transform );
