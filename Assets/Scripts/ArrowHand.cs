@@ -295,9 +295,9 @@ namespace Valve.VR.InteractionSystem
 		private void FireLaser()
 		{
 			GameObject laser = InstantiateLaser();
-			laser.transform.parent = null;
+			//laser.transform.parent = null;
 			//laser.transform.rotation = Quaternion.Euler (laser.transform.rotation.x, laser.transform.rotation.y-90, laser.transform.rotation.z);
-			laser.GetComponent<Rigidbody>().AddForce( laser.transform.forward * 60f, ForceMode.VelocityChange );
+			laser.GetComponentInChildren<Rigidbody>().AddForce( laser.transform.forward * 600f, ForceMode.VelocityChange );
 			StartCoroutine( LaserReleaseHaptics() );
 
 			allowTeleport.teleportAllowed = true;

@@ -16,7 +16,7 @@ public class Laser : MonoBehaviour {
 	
 	private IEnumerator fly()
 	{
-		yield return new WaitForSeconds (.01f);
+		yield return new WaitForSeconds (.1f);
 		destructible = true;
 		yield return new WaitForSeconds (10);
 		Destroy (this.gameObject);
@@ -41,6 +41,6 @@ public class Laser : MonoBehaviour {
 	private IEnumerator destroy()
 	{
 		yield return new WaitForSeconds (.01f);
-		Destroy (this.gameObject);
+		Destroy (this.transform.parent.gameObject);
 	}
 }
